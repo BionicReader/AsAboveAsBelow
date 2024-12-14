@@ -74,7 +74,7 @@ The story gradually reveals a buried artifact tied to your forgotten past and th
 
 ---
 
-## **License**
+## **License**  
 This project is released under the MIT License. Written and Coded by **Evie Melhuish** for SoloDevelopment winter game jam and CGRA259 2024
 ---
 
