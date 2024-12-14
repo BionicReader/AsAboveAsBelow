@@ -1,5 +1,5 @@
 ## AsAboveAsBelow
- Godot based Game for SoloDevelopment winter jam (https://itch.io/jam/solodevelopment-jam-6-winter-jam)
+ Godot based Game for SoloDevelopment winter jam (https://itch.io/jam/solodevelopment-jam-6-winter-jam)\n
 **Theme chosen: Under the Surface**
 
 ## **Game Overview**
