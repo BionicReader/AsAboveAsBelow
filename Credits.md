@@ -1,3 +1,7 @@
+# Credits
+
+*All assets used in this project are sourced from Itch.io and are under the CC0 license.*
+
 ## Tilesets
 - "Dungeon Ruins Tileset" Art by Penusbmic by https://itch.io/profile/penusbmic
 - "Pixel Art Platformer - Village Props v2.3.0" Art by Cainos by https://itch.io/profile/cainos
