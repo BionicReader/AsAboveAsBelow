@@ -3,7 +3,7 @@
 **Theme chosen: Under the Surface**
 
 ## **Game Overview**
-**Under the Surface** is a short adventure game inspired by the theme "Under the Surface" and games like *Deltarune*. It follows the journey of a character who ventures underground to uncover a long-lost secret hidden beneath the surface. Along the way, players interact with quirky NPCs, overcome unique challenges, and confront an ancient guardian in a thrilling culmination.
+**As Above As Below** is a short adventure game inspired by the theme "Under the Surface" and games like *Deltarune*. It follows the journey of a character who ventures underground to uncover a long-lost secret hidden beneath the surface. Along the way, players interact with quirky NPCs, overcome unique challenges, and confront an ancient guardian in a thrilling culmination.
 
 ---
 
@@ -65,19 +65,17 @@ The story gradually reveals a buried artifact tied to your forgotten past and th
 - **Inspiration:** *Deltarune*
 - **Tools:** Godot Engine, Audacity, Aseprite
 - **Assets:** Placeholder and custom assets (to be replaced with CC0 assets).
-- **Audio:** Royalty-free music and SFX from [Freesound.org](https://freesound.org).
+- **Audio:** Royalty-free music and SFX from TBD.  
 
 ---
 
 ## **Known Issues**
-- Occasional collision glitches in tile destruction.
-- Placeholder art in certain sections due to time constraints.
+- TBD  
 
 ---
 
 ## **License**
-This project is released under the MIT License. See [LICENSE](LICENSE) for details.
-
+This project is released under the MIT License. Written and Coded by **Evie Melhuish** for SoloDevelopment winter game jam and CGRA259 2024
 ---
 
 ## **Contact**
