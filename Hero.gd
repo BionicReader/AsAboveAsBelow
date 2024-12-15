@@ -35,8 +35,8 @@ func _physics_process(delta):
 	is_moving = false
 	is_performing_action = false
 
-	# Handle gravity
-	if current_form != PlayerForm.BEAST and not ground_ray.is_colliding():
+	# Handle gravity for all forms when not grounded
+	if not ground_ray.is_colliding():
 		velocity.y += GRAVITY * delta
 	
 	# Get input
