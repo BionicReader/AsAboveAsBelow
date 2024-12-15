@@ -3,7 +3,7 @@ extends CharacterBody2D
 # Movement constants
 var SPEED = 400.0  # Increased base speed
 const JUMP_FORCE = 800.0
-const GRAVITY = 2000.0
+var GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
 const FRICTION = 0.1  # Add friction to stop sliding
 const ACCELERATION = 0.25  # Smooth acceleration
 
