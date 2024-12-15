@@ -86,10 +86,10 @@ func handle_ground_movement(input_vector: Vector2, delta: float):
 	if Input.is_action_just_pressed("jump") and current_form != PlayerForm.BEAST:
 		is_jumping = true
 		perform_jump()
-
+ 
 func update_movement_animation(direction: float):
 	if current_form != PlayerForm.BEAST:
-		SPEED = 400.0
+		SPEED = 600.0
 		player_normal.play("Run")
 		player_normal.scale.x = sign(direction)
 	else:
@@ -217,6 +217,7 @@ func _on_change_await_timeout():
 
 
 # Break Tile Logic
-func _on_tail_down_body_entered(body):
-	print("3")
+func _on_tail_down_body_entered(body: Node):
+	if body is BreakableTile:
+		body.break_tile()
 
