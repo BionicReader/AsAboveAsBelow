@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctmy27ilxafu8"
-path="res://.godot/imported/TX FX Flame.png-2f6bbd842015a33fc2cc916baf3f05cd.ctex"
+uid="uid://c23sn1i7jkvhy"
+path="res://.godot/imported/7. Hit 48 x 48.png-d2c0ecaba3c7c7e2d2186798e7910d2f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/TileSets/Pixel Art Platformer - Village Props v2.3.0/Texture/TX FX Flame.png"
-dest_files=["res://.godot/imported/TX FX Flame.png-2f6bbd842015a33fc2cc916baf3f05cd.ctex"]
+source_file="res://Art/Assets/SHADOW Series - The Blind Huntress/Sprite Sheet/7. Hit 48 x 48.png"
+dest_files=["res://.godot/imported/7. Hit 48 x 48.png-d2c0ecaba3c7c7e2d2186798e7910d2f.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1nha2v44y5xf"
-path="res://.godot/imported/TX Tileset Ground.png-01fe2426ca05306c89f131386fe0f32e.ctex"
+uid="uid://ck660xdnuy1f2"
+path="res://.godot/imported/2. Run 48 x 48.png-733b8d16ed75794cd7a9e4302445e42a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/TileSets/Pixel Art Platformer - Village Props v2.3.0/Texture/TX Tileset Ground.png"
-dest_files=["res://.godot/imported/TX Tileset Ground.png-01fe2426ca05306c89f131386fe0f32e.ctex"]
+source_file="res://Art/Assets/SHADOW Series - The Blind Huntress/Sprite Sheet/2. Run 48 x 48.png"
+dest_files=["res://.godot/imported/2. Run 48 x 48.png-733b8d16ed75794cd7a9e4302445e42a.ctex"]
 
 [params]
 

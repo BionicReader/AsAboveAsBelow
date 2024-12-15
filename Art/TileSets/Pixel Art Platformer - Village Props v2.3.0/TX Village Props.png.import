@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wmx1a5ym0jbm"
-path="res://.godot/imported/Dungeon Ruins Tileset Night.png-3ee031cdbedeb9bafdd6fec7779460da.ctex"
+uid="uid://blvl41u3im62p"
+path="res://.godot/imported/TX Village Props.png-121435cdac8f1b14bdf42033fa0e96dc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/TileSets/Dungeon Ruins Tileset/Dungeon Ruins Tileset/Dungeon Ruins Tileset Night.png"
-dest_files=["res://.godot/imported/Dungeon Ruins Tileset Night.png-3ee031cdbedeb9bafdd6fec7779460da.ctex"]
+source_file="res://Art/TileSets/Pixel Art Platformer - Village Props v2.3.0/TX Village Props.png"
+dest_files=["res://.godot/imported/TX Village Props.png-121435cdac8f1b14bdf42033fa0e96dc.ctex"]
 
 [params]
 

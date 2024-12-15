@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c34akp108th6g"
-path="res://.godot/imported/TX Chest Animation.png-b99ac92ea45ff97bf955b2cd8b3e0ed4.ctex"
+uid="uid://bfcsp51w32x1d"
+path="res://.godot/imported/idle.png-9b77f61cd03eebcc631ff5b4fdc042ab.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/TileSets/Pixel Art Platformer - Village Props v2.3.0/Texture/TX Chest Animation.png"
-dest_files=["res://.godot/imported/TX Chest Animation.png-b99ac92ea45ff97bf955b2cd8b3e0ed4.ctex"]
+source_file="res://Art/Assets/SHADOW Series - The Shadowed Wetlands Boss/Sprite Sheet/idle.png"
+dest_files=["res://.godot/imported/idle.png-9b77f61cd03eebcc631ff5b4fdc042ab.ctex"]
 
 [params]
 

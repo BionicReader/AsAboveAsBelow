@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ca0ym7ow8kmc3"
-path="res://.godot/imported/TX FX Torch Flame.png-6037baa23a98c999eef13c40621c3a33.ctex"
+uid="uid://c0ttc4rknl6wf"
+path="res://.godot/imported/tile map.png-491ab0fc052402ea50d6b75762ee36c9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/TileSets/Pixel Art Platformer - Village Props v2.3.0/Texture/TX FX Torch Flame.png"
-dest_files=["res://.godot/imported/TX FX Torch Flame.png-6037baa23a98c999eef13c40621c3a33.ctex"]
+source_file="res://Art/Assets/SHADOW Series - Pixel Tile Map Asset Pack 3/tile map.png"
+dest_files=["res://.godot/imported/tile map.png-491ab0fc052402ea50d6b75762ee36c9.ctex"]
 
 [params]
 

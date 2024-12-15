@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmnd0gimk044m"
-path="res://.godot/imported/Dungeon Ruins Tileset Day.png-17973030c3a83391b0b42b74f265c63b.ctex"
+uid="uid://cc212x68klwfq"
+path="res://.godot/imported/Attack 2.png-fa00948a346bf3d13905c507c40c9ff1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/TileSets/Dungeon Ruins Tileset/Dungeon Ruins Tileset/Dungeon Ruins Tileset Day.png"
-dest_files=["res://.godot/imported/Dungeon Ruins Tileset Day.png-17973030c3a83391b0b42b74f265c63b.ctex"]
+source_file="res://Art/Assets/SHADOW Series - The Shadowed Wetlands Boss/Sprite Sheet/Attack 2.png"
+dest_files=["res://.godot/imported/Attack 2.png-fa00948a346bf3d13905c507c40c9ff1.ctex"]
 
 [params]
 

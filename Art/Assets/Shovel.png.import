@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blvl41u3im62p"
-path="res://.godot/imported/TX Village Props.png-743e1f507cb1e6144adcf2467d5d1aaf.ctex"
+uid="uid://d1r88qngshrvf"
+path="res://.godot/imported/Shovel.png-d55320191e50c87057f4c51c61c54b7b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/TileSets/Pixel Art Platformer - Village Props v2.3.0/Texture/TX Village Props.png"
-dest_files=["res://.godot/imported/TX Village Props.png-743e1f507cb1e6144adcf2467d5d1aaf.ctex"]
+source_file="res://Art/Assets/Shovel.png"
+dest_files=["res://.godot/imported/Shovel.png-d55320191e50c87057f4c51c61c54b7b.ctex"]
 
 [params]
 
