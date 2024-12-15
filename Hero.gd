@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 # Movement constants
-const SPEED = 300.0  # Increased base speed
+var SPEED = 400.0  # Increased base speed
 const JUMP_FORCE = 800.0
 const GRAVITY = 2000.0
 const FRICTION = 0.1  # Add friction to stop sliding
@@ -92,7 +92,9 @@ func update_movement_animation(direction: float):
 		player_normal.play("Run")
 		player_normal.scale.x = sign(direction)
 	else:
+		SPEED = 200.0
 		player_beast.play("WalkState")
+		is_moving = true
 		player_beast.scale.x = 0.7 * sign(direction)
 
 func perform_jump():
@@ -122,17 +124,18 @@ func initiate_form_change():
 
 func handle_beast_actions():
 	# Prioritize attack/hit actions
-	if Input.is_action_pressed("hitR"):
-		player_beast.play("BreakSide")
-		player_beast.scale.x = 0.75
-		is_performing_action = true
-	elif Input.is_action_pressed("hitL"):
-		player_beast.play("BreakSide")
-		player_beast.scale.x = -0.75
-		is_performing_action = true
-	elif Input.is_action_pressed("hitD"):
-		player_beast.play("BreakDown")
-		is_performing_action = true
+	if !is_moving:
+		if Input.is_action_pressed("hitR"):
+			player_beast.play("BreakSide")
+			player_beast.scale.x = 0.75
+			is_performing_action = true
+		elif Input.is_action_pressed("hitL"):
+			player_beast.play("BreakSide")
+			player_beast.scale.x = -0.75
+			is_performing_action = true
+		elif Input.is_action_pressed("hitD"):
+			player_beast.play("BreakDown")
+			is_performing_action = true
 
 func handle_normal_actions():
 	if Input.is_action_just_pressed("attack"):
