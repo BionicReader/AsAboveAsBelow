@@ -4032,6 +4032,8 @@ collision_layer = 3
 collision_mask = 3
 floor_constant_speed = false
 
+[node name="Camera2D" type="Camera2D" parent="Hero"]
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_qdj0h")
 format = 2
