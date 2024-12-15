@@ -64,7 +64,7 @@ The story gradually reveals a buried artifact tied to your forgotten past and th
 - **Developer:** Evie Melhuish
 - **Inspiration:** *Deltarune*
 - **Tools:** Godot Engine, Audacity, Aseprite
-- **Assets:** Placeholder and custom assets (to be replaced with CC0 assets).
+- **Assets:** CC0 assets credited in [Credits](./Credits.md)
 - **Audio:** Royalty-free music and SFX from TBD.  
 
 ---
