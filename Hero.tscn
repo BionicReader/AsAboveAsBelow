@@ -13,6 +13,10 @@
 [ext_resource type="Texture2D" uid="uid://ck660xdnuy1f2" path="res://Art/Assets/SHADOW Series - The Blind Huntress/Sprite Sheet/2. Run 48 x 48.png" id="10_ywvas"]
 [ext_resource type="Texture2D" uid="uid://dif6kif3n0452" path="res://Art/Assets/SHADOW Series - The Shadowed Wetlands Boss/Sprite Sheet/walk.png" id="11_sdv27"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b6xir"]
+radius = 8.0
+height = 40.0
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_n6y7c"]
 atlas = ExtResource("6_ianvm")
 region = Rect2(0, 0, 48, 48)
@@ -903,17 +907,13 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b6xir"]
-radius = 8.0
-height = 40.0
-
 [sub_resource type="Animation" id="Animation_hidi3"]
 resource_name = "AttackArea"
 length = 1.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Area2D/CollisionShape2D:position")
+tracks/0/path = NodePath("CharacterBody2D/CollisionShape2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -925,7 +925,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Area2D/CollisionShape2D:disabled")
+tracks/1/path = NodePath("CharacterBody2D/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -940,7 +940,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Area2D/CollisionShape2D:position")
+tracks/0/path = NodePath("CharacterBody2D/CollisionShape2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -952,7 +952,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Area2D/CollisionShape2D:disabled")
+tracks/1/path = NodePath("CharacterBody2D/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -968,7 +968,7 @@ length = 0.9
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Area2D/CollisionShape2D:position")
+tracks/0/path = NodePath("CharacterBody2D/CollisionShape2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -980,7 +980,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Area2D/CollisionShape2D:disabled")
+tracks/1/path = NodePath("CharacterBody2D/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -996,7 +996,7 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Area2D/CollisionShape2D:disabled")
+tracks/0/path = NodePath("CharacterBody2D/CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1014,11 +1014,14 @@ _data = {
 "RESET": SubResource("Animation_ggm1r")
 }
 
-[node name="Hero" type="Node2D"]
+[node name="CharacterBody2D" type="CharacterBody2D"]
+floor_constant_speed = true
 script = ExtResource("1_5stw2")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_b6xir")
+
 [node name="PlayerNorm" type="AnimatedSprite2D" parent="."]
-visible = false
 sprite_frames = SubResource("SpriteFrames_rvfph")
 animation = &"Hit"
 
@@ -1027,14 +1030,14 @@ visible = false
 position = Vector2(4, -9)
 scale = Vector2(0.7, 0.7)
 sprite_frames = SubResource("SpriteFrames_ylh78")
-animation = &"WalkState"
-frame_progress = 0.888805
+animation = &"BreakSide"
+frame = 6
+frame_progress = 1.0
 
 [node name="Change" type="AnimatedSprite2D" parent="."]
-visible = false
 position = Vector2(1, -1)
 rotation = -0.20944
-scale = Vector2(1.3, 1.335)
+scale = Vector2(1.8, 1.849)
 sprite_frames = SubResource("SpriteFrames_gd2yp")
 animation = &"Change"
 frame = 10
@@ -1057,22 +1060,24 @@ frame = 14
 frame_progress = 1.0
 
 [node name="PlayerDash" type="AnimatedSprite2D" parent="."]
-visible = false
 position = Vector2(40, -6)
 sprite_frames = SubResource("SpriteFrames_8mnfm")
 animation = &"Dash"
 frame = 9
 frame_progress = 1.0
 
-[node name="Area2D" type="Area2D" parent="."]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(1, 0)
-shape = SubResource("CapsuleShape2D_b6xir")
-disabled = true
-
 [node name="MoveArea" type="AnimationPlayer" parent="."]
+root_node = NodePath("")
 libraries = {
 "": SubResource("AnimationLibrary_swk83")
 }
+
+[node name="groundRay" type="RayCast2D" parent="."]
+position = Vector2(1, -6)
+target_position = Vector2(0, 27)
+
+[node name="ChangeAwait" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[connection signal="timeout" from="ChangeAwait" to="." method="_on_change_await_timeout"]
