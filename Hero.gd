@@ -23,7 +23,6 @@ var is_jumping = false
 @onready var change_anim = $Change
 @onready var death_anim = $PlayerDeath
 @onready var attack_anim = $PlayerAttack
-@onready var dash_anim = $PlayerDash
 @onready var ground_ray = $groundRay
 @onready var change_timer = $ChangeAwait
 
@@ -35,7 +34,6 @@ func _physics_process(delta):
 	# Reset state flags at start of frame
 	is_moving = false
 	is_performing_action = false
-	is_jumping = false
 
 	# Handle gravity
 	if current_form != PlayerForm.BEAST and not ground_ray.is_colliding():
@@ -46,6 +44,7 @@ func _physics_process(delta):
 	
 	# Apply movement
 	if ground_ray.is_colliding():
+		is_jumping = false
 		handle_ground_movement(input_vector, delta)
 	
 	# Handle actions
@@ -85,6 +84,7 @@ func handle_ground_movement(input_vector: Vector2, delta: float):
 	
 	# Handle jumping
 	if Input.is_action_just_pressed("jump") and current_form != PlayerForm.BEAST:
+		is_jumping = true
 		perform_jump()
 
 func update_movement_animation(direction: float):
@@ -96,12 +96,11 @@ func update_movement_animation(direction: float):
 		player_beast.scale.x = 0.7 * sign(direction)
 
 func perform_jump():
-	print("Jump")
 	is_jumping = true
 	if ground_ray.is_colliding():
+		print("Jump")
 		player_normal.play("Jump")
 		velocity.y = -JUMP_FORCE
-		is_jumping = true
 
 func handle_actions():
 	# Form change
@@ -136,34 +135,41 @@ func handle_beast_actions():
 		is_performing_action = true
 
 func handle_normal_actions():
-	if Input.is_action_just_pressed("dash"):
-		handle_dash()
-	elif Input.is_action_pressed("attack"):
+	if Input.is_action_just_pressed("attack"):
+		# Stop if already performing an action
+		if is_performing_action:
+			return
+		
+		attack_anim.visible = true
+		player_normal.visible = false
+		print("attack")
 		attack_anim.play("Attack")
+		
+		# Flip based on the last direction of the normal player
+		attack_anim.scale.x = -player_normal.scale.x
+		
+		# Adjust position based on facing direction
+		if player_normal.scale.x > 0:  # Facing right
+			attack_anim.position.x = 38
+		else:  # Facing left
+			attack_anim.position.x = -38
+		
 		is_performing_action = true
-
-func handle_dash():
-	# Stop if already dashing
-	if is_performing_action:
-		return
-	
-	dash_anim.visible = true
-	player_normal.visible = false
-	print("dash")
-	dash_anim.play("Dash")
-	is_performing_action = true
-	
-	# Create a timer to handle dash duration and reset
-	var dash_timer = get_tree().create_timer(0.5)  # Adjust duration as needed
-	dash_timer.timeout.connect(func():
-		dash_anim.visible = false
-		player_normal.visible = true
-		is_performing_action = false
-	)
+		
+		# Create a timer to handle attack duration and reset
+		var attack_timer = get_tree().create_timer(0.5)  # Adjust duration as needed
+		attack_timer.timeout.connect(func():
+			attack_anim.visible = false
+			player_normal.visible = true
+			is_performing_action = false
+			# Reset position after attack
+			attack_anim.position.x = 0
+		)
 
 func update_animation_state():
 	# Only go to idle if no actions, no movement, and no jumping
 	if not is_performing_action and not is_moving and not is_jumping:
+		print(is_jumping)
 		if current_form != PlayerForm.BEAST:
 			player_normal.play("Idle")
 		else:
