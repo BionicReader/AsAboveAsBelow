@@ -89,6 +89,7 @@ func handle_ground_movement(input_vector: Vector2, delta: float):
 
 func update_movement_animation(direction: float):
 	if current_form != PlayerForm.BEAST:
+		SPEED = 400.0
 		player_normal.play("Run")
 		player_normal.scale.x = sign(direction)
 	else:
