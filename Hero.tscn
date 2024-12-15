@@ -1,4 +1,4 @@
-[gd_scene load_steps=121 format=3 uid="uid://b57djdy70u8fx"]
+[gd_scene load_steps=122 format=3 uid="uid://b57djdy70u8fx"]
 
 [ext_resource type="Script" path="res://Hero.gd" id="1_5stw2"]
 [ext_resource type="Texture2D" uid="uid://dlhxkdrl1vs3" path="res://Art/Assets/SHADOW Series - The Blind Huntress/Sprite Sheet/5. Attack 131 x 56.png" id="2_6vvtr"]
@@ -878,6 +878,10 @@ _data = {
 "RESET": SubResource("Animation_ggm1r")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qek5l"]
+radius = 4.0
+height = 36.0
+
 [node name="CharacterBody2D" type="CharacterBody2D"]
 floor_constant_speed = true
 script = ExtResource("1_5stw2")
@@ -895,9 +899,9 @@ visible = false
 position = Vector2(4, -9)
 scale = Vector2(0.7, 0.7)
 sprite_frames = SubResource("SpriteFrames_ylh78")
-animation = &"BreakSide"
-frame = 6
-frame_progress = 1.0
+animation = &"BreakDown"
+frame = 2
+frame_progress = 0.641135
 
 [node name="Change" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -1)
@@ -938,4 +942,19 @@ target_position = Vector2(0, 27)
 wait_time = 0.3
 one_shot = true
 
+[node name="TailDown" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="tailD" type="CollisionShape2D" parent="TailDown"]
+position = Vector2(29, 17)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_qek5l")
+disabled = true
+
+[node name="TailDelay" type="Timer" parent="."]
+wait_time = 0.2
+
 [connection signal="timeout" from="ChangeAwait" to="." method="_on_change_await_timeout"]
+[connection signal="body_entered" from="TailDown" to="." method="_on_tail_down_body_entered"]
+[connection signal="timeout" from="TailDelay" to="." method="_on_tail_delay_timeout"]

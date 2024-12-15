@@ -97,7 +97,8 @@ func update_movement_animation(direction: float):
 		player_beast.play("WalkState")
 		is_moving = true
 		player_beast.scale.x = 0.7 * sign(direction)
-
+		$TailDown.scale.x = 0.7 * sign(direction)
+		
 func perform_jump():
 	is_jumping = true
 	if ground_ray.is_colliding():
@@ -122,7 +123,9 @@ func initiate_form_change():
 	print("Form change initiated")
 	change_timer.start()
 	is_performing_action = true
-
+	
+# Declare the tail timer
+@onready var tail_cooldown_timer = $TailDelay
 func handle_beast_actions():
 	# Prioritize attack/hit actions
 	if !is_moving:
@@ -137,7 +140,23 @@ func handle_beast_actions():
 		elif Input.is_action_pressed("hitD"):
 			player_beast.play("BreakDown")
 			is_performing_action = true
+			handle_tail()
 
+# Separate function to handle tail logic and start cooldown timer
+func handle_tail():
+	if tail_cooldown_timer.is_stopped():
+		tail_cooldown_timer.start() # Start the cooldown timer
+		$TailDown/tailD.disabled = true
+# Handle the release of the button outside of the timer logic
+func _process(delta):
+	if Input.is_action_just_released("hitD"):
+		$TailDown/tailD.disabled = true
+		tail_cooldown_timer.stop()
+		
+func _on_tail_delay_timeout():
+	$TailDown/tailD.disabled = false
+	handle_tail()
+	
 func handle_normal_actions():
 	if Input.is_action_just_pressed("attack"):
 		# Stop if already performing an action
@@ -173,7 +192,6 @@ func handle_normal_actions():
 func update_animation_state():
 	# Only go to idle if no actions, no movement, and no jumping
 	if not is_performing_action and not is_moving and not is_jumping:
-		print(is_jumping)
 		if current_form != PlayerForm.BEAST:
 			player_normal.play("Idle")
 		else:
@@ -194,3 +212,11 @@ func _on_change_await_timeout():
 		player_normal.visible = true
 		player_normal.play("Idle")
 		print("Switched to Original form")
+
+
+
+
+# Break Tile Logic
+func _on_tail_down_body_entered(body):
+	print("3")
+
