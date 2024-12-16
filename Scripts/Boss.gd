@@ -136,11 +136,12 @@ func reset():
 	$AnimationPlayer.play("RESET")
 
 func _on_melee_player_detect_area_entered(area):
-	if area.name == "Sword":
-		health += -5
-	elif area.name == "TailSide":
-		health += -15
-
+	if health != 0:
+		if area.name == "Sword":
+			health += -10
+		elif area.name == "TailSide":
+			health += -20
+		
 func death():
 	velocity.x = 0
 	invisible()

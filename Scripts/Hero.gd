@@ -166,50 +166,48 @@ var is_tail_down_active = false
 var is_tail_side_active = false
 
 func handle_beast_actions():
-	# Prioritize attack/hit actions
-	if !is_moving:
-		if Input.is_action_pressed("hitR"):
-			player_beast.play("BreakSide")
-			player_beast.scale.x = 0.75
-			$TailSide.scale.x = 1
-			player_normal.scale.x = 1
-			$Sword.scale.x = 1
-			is_performing_action = true
-			var tailD_timer = get_tree().create_timer(0.3) # Adjust duration as needed
-			tailD_timer.timeout.connect(func():
-				tailSide.disabled = false
-				var power_timer = get_tree().create_timer(0.5) # Adjust duration as needed
-				power_timer.timeout.connect(func():
-					tailSide.disabled = true
-				)
+	if Input.is_action_pressed("hitR"):
+		player_beast.play("BreakSide")
+		player_beast.scale.x = 0.75
+		$TailSide.scale.x = 1
+		player_normal.scale.x = 1
+		$Sword.scale.x = 1
+		is_performing_action = true
+		var tailD_timer = get_tree().create_timer(0.3) # Adjust duration as needed
+		tailD_timer.timeout.connect(func():
+			tailSide.disabled = false
+			var power_timer = get_tree().create_timer(0.5) # Adjust duration as needed
+			power_timer.timeout.connect(func():
+				tailSide.disabled = true
 			)
-		elif Input.is_action_pressed("hitL"):
-			player_beast.play("BreakSide")
-			player_beast.scale.x = -0.75
-			$TailSide.scale.x = -1
-			player_normal.scale.x = -1
-			$Sword.scale.x = -1
-			is_performing_action = true
-			var tailD_timer = get_tree().create_timer(0.3) # Adjust duration as needed
-			tailD_timer.timeout.connect(func():
-				tailSide.disabled = false
-				var power_timer = get_tree().create_timer(0.5) # Adjust duration as needed
-				power_timer.timeout.connect(func():
-					tailSide.disabled = true
-				)
+		)
+	elif Input.is_action_pressed("hitL"):
+		player_beast.play("BreakSide")
+		player_beast.scale.x = -0.75
+		$TailSide.scale.x = -1
+		player_normal.scale.x = -1
+		$Sword.scale.x = -1
+		is_performing_action = true
+		var tailD_timer = get_tree().create_timer(0.3) # Adjust duration as needed
+		tailD_timer.timeout.connect(func():
+			tailSide.disabled = false
+			var power_timer = get_tree().create_timer(0.5) # Adjust duration as needed
+			power_timer.timeout.connect(func():
+				tailSide.disabled = true
 			)
-		elif Input.is_action_pressed("hitD"):
-			player_beast.play("BreakDown")
-			is_performing_action = true
-			var tailD_timer = get_tree().create_timer(0.3) # Adjust duration as needed
-			tailD_timer.timeout.connect(func():
-				tailD.disabled = false
-				var power_timer = get_tree().create_timer(0.5) # Adjust duration as needed
-				power_timer.timeout.connect(func():
-					tailD.disabled = true
-				)
+		)
+	elif Input.is_action_pressed("hitD"):
+		player_beast.play("BreakDown")
+		is_performing_action = true
+		var tailD_timer = get_tree().create_timer(0.3) # Adjust duration as needed
+		tailD_timer.timeout.connect(func():
+			tailD.disabled = false
+			var power_timer = get_tree().create_timer(0.5) # Adjust duration as needed
+			power_timer.timeout.connect(func():
+				tailD.disabled = true
 			)
-	return
+		)
+
 
 # Monitor input release for cleanup
 func _process(delta):
@@ -227,8 +225,6 @@ func _process(delta):
 func handle_normal_actions():
 	if Input.is_action_just_pressed("attack"):
 		# Stop if already performing an action
-		if is_performing_action:
-			return
 		
 		attack_anim.visible = true
 		player_normal.visible = false
@@ -281,8 +277,6 @@ func _on_change_await_timeout():
 		player_normal.visible = true
 		player_normal.play("Idle")
 		print("Switched to Original form")
-
-
 
 
 # Break Tile Logic

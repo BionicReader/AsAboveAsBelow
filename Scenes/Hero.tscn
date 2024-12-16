@@ -996,6 +996,7 @@ offset_left = -18.0
 offset_top = -30.0
 offset_right = 18.0
 offset_bottom = -25.0
+step = 1.0
 
 [connection signal="timeout" from="ChangeAwait" to="." method="_on_change_await_timeout"]
 [connection signal="body_entered" from="TailDown" to="." method="_on_tail_down_body_entered"]
