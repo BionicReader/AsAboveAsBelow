@@ -145,10 +145,10 @@ func handle_beast_actions():
 			player_beast.scale.x = 0.75
 			$TailSide.scale.x = 1
 			is_performing_action = true
-			var tailD_timer = get_tree().create_timer(0.3)  # Adjust duration as needed
+			var tailD_timer = get_tree().create_timer(0.2)  # Adjust duration as needed
 			tailD_timer.timeout.connect(func():
 				tailSide.disabled = false
-				var power_timer = get_tree().create_timer(0.5)  # Adjust duration as needed
+				var power_timer = get_tree().create_timer(0.4)  # Adjust duration as needed
 				power_timer.timeout.connect(func():
 					tailSide.disabled = true
 				)
