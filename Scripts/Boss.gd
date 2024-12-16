@@ -68,12 +68,11 @@ func _on_melee_player_detect_body_entered(body):
 		chase = false
 		attack = false
 		change_state("defense")
-	if body.name == "Sword":
-		pass
 
 
 func _on_melee_player_detect_body_exited(body):
 	if body.name == "Hero" and !dead:
+		$Shoot/Bullet/bullet.disabled = true
 		defense = false
 		main_body.visible = true
 		attackAni.visible = false
@@ -84,6 +83,7 @@ func _on_melee_player_detect_body_exited(body):
 
 func _on_shoot_player_detector_body_entered(body):
 	if body.name == "Hero" and !dead:
+		$AnimationPlayer.play("Bullet")
 		defense = false
 		chase = false
 		attack = true
@@ -92,10 +92,12 @@ func _on_shoot_player_detector_body_entered(body):
 
 func _on_shoot_player_detector_body_exited(body):
 	if body.name == "Hero" and !dead:
+		$AnimationPlayer.stop()
 		defense = false
 		chase = true
 		attack = false
 		change_state("chase")
+		$Shoot/Bullet/bullet.disabled = true
 
 
 

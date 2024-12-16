@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://b6tanufx7seix"]
+[gd_scene load_steps=73 format=3 uid="uid://b6tanufx7seix"]
 
 [ext_resource type="Script" path="res://Scripts/Boss.gd" id="1_8lod6"]
 [ext_resource type="Texture2D" uid="uid://b5yxc7hj3lt58" path="res://Art/Sprites/SHADOW Series - Frost Curse Boss/Sprite/3. attack 1 - 1.png" id="2_kgb7w"]
@@ -429,6 +429,10 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6sx7g"]
+radius = 3.0
+height = 172.0
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_vuren"]
 atlas = ExtResource("3_hdwy8")
 region = Rect2(1370, 0, 137, 40)
@@ -474,6 +478,44 @@ radius = 123.357
 [sub_resource type="CircleShape2D" id="CircleShape2D_typ3o"]
 radius = 320.601
 
+[sub_resource type="Animation" id="Animation_a0qyp"]
+resource_name = "Bullet"
+length = 1.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shoot/Bullet/bullet:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_lqxjt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shoot/Bullet/bullet:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_28q0m"]
+_data = {
+"Bullet": SubResource("Animation_a0qyp"),
+"RESET": SubResource("Animation_lqxjt")
+}
+
 [node name="Boss" type="CharacterBody2D"]
 scale = Vector2(2, 2)
 collision_layer = 2
@@ -504,15 +546,24 @@ frame = 10
 frame_progress = 1.0
 
 [node name="Shoot" type="AnimatedSprite2D" parent="."]
-visible = false
 position = Vector2(156, 43.3333)
 rotation = -0.471239
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_o30t1")
 animation = &"Shoot"
 autoplay = "Shoot"
-frame = 15
-frame_progress = 1.0
+frame_progress = 0.896663
+
+[node name="Bullet" type="Area2D" parent="Shoot"]
+position = Vector2(-99.4367, -91.194)
+rotation = 0.471239
+scale = Vector2(0.833333, 0.833333)
+
+[node name="bullet" type="CollisionShape2D" parent="Shoot/Bullet"]
+position = Vector2(158.5, 45.5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_6sx7g")
+disabled = true
 
 [node name="Attack" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -521,9 +572,10 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_bn6kw")
 animation = &"Attack"
 autoplay = "Attack"
-frame_progress = 0.572636
+frame_progress = 0.825458
 
 [node name="PlayerDetect" type="Area2D" parent="."]
+visible = false
 position = Vector2(0, -4)
 scale = Vector2(0.333333, 0.333333)
 collision_layer = 3
@@ -534,6 +586,7 @@ position = Vector2(102, 123)
 shape = SubResource("CircleShape2D_kh66y")
 
 [node name="MeleePlayerDetect" type="Area2D" parent="."]
+visible = false
 position = Vector2(0, -4)
 scale = Vector2(0.333333, 0.333333)
 collision_layer = 3
@@ -544,6 +597,7 @@ position = Vector2(102, 125)
 shape = SubResource("CircleShape2D_twpfk")
 
 [node name="ShootPlayerDetector" type="Area2D" parent="."]
+visible = false
 position = Vector2(0, -4)
 scale = Vector2(0.333333, 0.333333)
 collision_layer = 3
@@ -552,6 +606,11 @@ collision_mask = 3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ShootPlayerDetector"]
 position = Vector2(101, 124)
 shape = SubResource("CircleShape2D_typ3o")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_28q0m")
+}
 
 [connection signal="body_entered" from="PlayerDetect" to="." method="_on_player_detect_body_entered"]
 [connection signal="body_exited" from="PlayerDetect" to="." method="_on_player_detect_body_exited"]
