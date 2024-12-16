@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvngiybl0qg60"]
+
+[ext_resource type="AudioStream" uid="uid://crtprgq0l1i2a" path="res://night_theme_1.wav" id="1_bk13v"]
+
+[node name="GlobalSong" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_bk13v")
+volume_db = 15.18
+autoplay = true
+max_distance = 43221.0

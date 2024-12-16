@@ -151,6 +151,7 @@ func handle_actions():
 
 func initiate_form_change():
 	change_anim.play("Change")
+	$PUFF.play()
 	print("Form change initiated")
 	change_timer.start()
 	is_performing_action = true
@@ -168,6 +169,7 @@ var is_tail_side_active = false
 func handle_beast_actions():
 	if Input.is_action_pressed("hitR"):
 		player_beast.play("BreakSide")
+		$HITS.play()
 		player_beast.scale.x = 0.75
 		$TailSide.scale.x = 1
 		player_normal.scale.x = 1
@@ -183,6 +185,7 @@ func handle_beast_actions():
 		)
 	elif Input.is_action_pressed("hitL"):
 		player_beast.play("BreakSide")
+		$HITS.play()
 		player_beast.scale.x = -0.75
 		$TailSide.scale.x = -1
 		player_normal.scale.x = -1
@@ -198,6 +201,7 @@ func handle_beast_actions():
 		)
 	elif Input.is_action_pressed("hitD"):
 		player_beast.play("BreakDown")
+		$HITD.play()
 		is_performing_action = true
 		var tailD_timer = get_tree().create_timer(0.3) # Adjust duration as needed
 		tailD_timer.timeout.connect(func():
@@ -231,7 +235,7 @@ func handle_normal_actions():
 		print("attack")
 		attack_anim.play("Attack")
 		sword.disabled = false
-		
+		$SWORD.play()
 		# Flip based on the last direction of the normal player
 		attack_anim.scale.x = -player_normal.scale.x
 		
@@ -320,6 +324,7 @@ func die():
 		var death_timer = get_tree().create_timer(0.9)  # Adjust duration as needed
 		death_timer.timeout.connect(func():
 			$Win.visible = true
+			get_tree().quit()
 		)
 	)
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=126 format=3 uid="uid://b57djdy70u8fx"]
+[gd_scene load_steps=130 format=3 uid="uid://b57djdy70u8fx"]
 
 [ext_resource type="Script" path="res://Scripts/Hero.gd" id="1_5stw2"]
 [ext_resource type="Texture2D" uid="uid://c23sn1i7jkvhy" path="res://Art/Sprites/SS - The Blind Huntress (Hero)/Sprite Sheet/7. Hit 48 x 48.png" id="2_3tasp"]
@@ -12,6 +12,10 @@
 [ext_resource type="Texture2D" uid="uid://edggm5fryrvg" path="res://Art/Sprites/SS - The Blind Huntress (Hero)/Sprite Sheet/8. Death 76 x 48.png" id="10_18la7"]
 [ext_resource type="Texture2D" uid="uid://dlhxkdrl1vs3" path="res://Art/Sprites/SS - The Blind Huntress (Hero)/Sprite Sheet/5. Attack 131 x 56.png" id="11_0nwyb"]
 [ext_resource type="PackedScene" uid="uid://drgqnmvgpjxw1" path="res://HealthBar.tscn" id="12_ayv4x"]
+[ext_resource type="AudioStream" uid="uid://cw1g4fapi2w32" path="res://Art/SFX/hit-94706.mp3" id="13_apryc"]
+[ext_resource type="AudioStream" uid="uid://cu4hg7cp71w3x" path="res://Art/SFX/thud-82914.mp3" id="14_ou42t"]
+[ext_resource type="AudioStream" uid="uid://drv2wmr6mqjns" path="res://Art/SFX/sword-thud-47635.mp3" id="15_7h5xq"]
+[ext_resource type="AudioStream" uid="uid://5reovx8xklad" path="res://Art/SFX/puff.mp3" id="16_jm7jg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_66fva"]
 size = Vector2(15, 39)
@@ -793,6 +797,10 @@ tracks/1/keys = {
 "values": [false, true, false, true, false]
 }
 
+[sub_resource type="Animation" id="Animation_3a6s6"]
+resource_name = "Credits"
+length = 5.0
+
 [sub_resource type="Animation" id="Animation_2id5y"]
 resource_name = "DashArea"
 length = 0.9
@@ -863,10 +871,6 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
-
-[sub_resource type="Animation" id="Animation_3a6s6"]
-resource_name = "Credits"
-length = 5.0
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_swk83"]
 _data = {
@@ -1002,6 +1006,20 @@ offset_top = -30.0
 offset_right = 18.0
 offset_bottom = -25.0
 step = 1.0
+
+[node name="HITD" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_apryc")
+volume_db = 5.47
+pitch_scale = 0.71
+
+[node name="HITS" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_ou42t")
+
+[node name="SWORD" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_7h5xq")
+
+[node name="PUFF" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_jm7jg")
 
 [connection signal="timeout" from="ChangeAwait" to="." method="_on_change_await_timeout"]
 [connection signal="body_entered" from="TailDown" to="." method="_on_tail_down_body_entered"]
