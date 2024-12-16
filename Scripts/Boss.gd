@@ -34,6 +34,7 @@ func _physics_process(delta):
 	move_and_slide()
 
 func change_state(new_state_name):
+	print("Changing to state:", new_state_name)
 	if state != null:
 		state.exit()
 		state.queue_free()
@@ -51,6 +52,8 @@ func _process(delta):
 		elif attack == true and !dead:
 			shootAni.visible = true
 			shoot_body.visible = true
+			main_body.visible = false
+		elif defense == true:
 			main_body.visible = false
 	else:
 		invisible()
@@ -124,6 +127,7 @@ func reset():
 
 func _on_melee_player_detect_area_entered(area):
 	if area.name == "Sword":
+		velocity.x = 0
 		invisible()
 		var die_timer = get_tree().create_timer(0.01)  # Adjust duration as needed
 		die_timer.timeout.connect(func():

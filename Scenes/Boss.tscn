@@ -473,7 +473,7 @@ radius = 8.25
 height = 52.5
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w1jsf"]
-radius = 133.5
+radius = 168.0
 height = 1713.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vwkyr"]
@@ -842,7 +842,6 @@ _data = {
 [node name="Boss" type="CharacterBody2D"]
 scale = Vector2(2, 2)
 collision_layer = 2
-collision_mask = 2
 script = ExtResource("1_8lod6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -919,7 +918,7 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetect"]
-position = Vector2(102, 123)
+position = Vector2(99.0001, 84.0001)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_w1jsf")
 

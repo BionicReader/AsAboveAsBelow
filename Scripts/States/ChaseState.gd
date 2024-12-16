@@ -27,6 +27,10 @@ func _physics_process(delta):
 		Boss.velocity.x = 0
 		Boss.change_state("attack")
 		print("must find")
+	elif Boss.defense == true:
+		Boss.velocity.x = 0
+		Boss.change_state("defense")
+		print("DIEIEID")
 	else:
 		print("where are you!?!")
 		Boss.velocity.x = 0

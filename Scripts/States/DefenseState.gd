@@ -1,13 +1,12 @@
 extends State
 class_name DefenseState
 
-@onready var boss = $"."
-
 func _ready():
-	print("defend")
+	print("defense")
 	atk()
 
 func atk():
+	animation.stop()
 	animation.play("Attack")
 
 func exit():
