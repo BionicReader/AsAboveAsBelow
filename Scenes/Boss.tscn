@@ -552,7 +552,7 @@ scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_o30t1")
 animation = &"Shoot"
 autoplay = "Shoot"
-frame_progress = 0.896663
+frame_progress = 0.162082
 
 [node name="Bullet" type="Area2D" parent="Shoot"]
 position = Vector2(-99.4367, -91.194)
@@ -572,7 +572,7 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_bn6kw")
 animation = &"Attack"
 autoplay = "Attack"
-frame_progress = 0.825458
+frame_progress = 0.787132
 
 [node name="PlayerDetect" type="Area2D" parent="."]
 visible = false

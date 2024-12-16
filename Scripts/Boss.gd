@@ -24,10 +24,12 @@ func _ready():
 	change_state("idle")
 
 func _physics_process(delta):
-	# Add the gravity.
+	# Add gravity effect if not on the floor
 	if not is_on_floor():
 		velocity.y += gravity * delta
+		
 	move_and_slide()
+
 
 func change_state(new_state_name):
 	if state != null:
