@@ -47,7 +47,7 @@ func _process(delta):
 			main_body.visible = true
 		elif attack == true:
 			shootAni.visible = true
-			shoot_body.visible = true
+			#shoot_body.visible = true
 			main_body.visible = false
 
 func _on_player_detect_body_entered(body):
@@ -67,6 +67,7 @@ func _on_player_detect_body_exited(body):
 
 func _on_melee_player_detect_body_entered(body):
 	if body.name == "Hero" and !dead:
+		$Attack/Swish/swish.disabled = false
 		defense = true
 		main_body.visible = false
 		attackAni.visible = true
@@ -78,6 +79,7 @@ func _on_melee_player_detect_body_entered(body):
 func _on_melee_player_detect_body_exited(body):
 	if body.name == "Hero" and !dead:
 		$Shoot/Bullet/bullet.disabled = true
+		$Attack/Swish/swish.disabled = true
 		defense = false
 		main_body.visible = true
 		attackAni.visible = false
@@ -88,6 +90,7 @@ func _on_melee_player_detect_body_exited(body):
 
 func _on_shoot_player_detector_body_entered(body):
 	if body.name == "Hero" and !dead:
+		$Attack/Swish/swish.disabled = true
 		$AnimationPlayer.play("Bullet")
 		defense = false
 		chase = false
@@ -115,12 +118,13 @@ func _on_melee_player_detect_area_entered(area):
 	if area.name == "Sword":
 		change_state("die")
 		shootAni.stop()
-		$MainBody.visible = false
-		$Shoot.visible = false
-		$Attack.visible = false
+		shoot_body.stop()
 		dead = true
 		die.visible = true
+		$AnimationPlayer.play("DeathSet")
 		die.play("Die")
+		print("heressssss")
+		$AnimationPlayer.play("DeathSet")
 		var death_timer = get_tree().create_timer(2.0)  # Adjust duration as needed
 		death_timer.timeout.connect(func():
 			self.queue_free()

@@ -2,5 +2,8 @@ extends State
 class_name DieState
 
 func _process(delta):
-	print("dead")
 	animation.stop()
+
+func exit():
+	print ("Exit Die State")
+ 
