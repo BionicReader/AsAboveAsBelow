@@ -109,19 +109,19 @@ region = Rect2(128, 13, 32, 40)
 atlas = ExtResource("4_d21p8")
 region = Rect2(160, 13, 32, 40)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2y258"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_x63uq"]
 atlas = ExtResource("5_jguyx")
 region = Rect2(0, 13, 32, 40)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sinu2"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_87vur"]
 atlas = ExtResource("5_jguyx")
 region = Rect2(32, 13, 32, 40)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_y3i8g"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ia4gf"]
 atlas = ExtResource("5_jguyx")
 region = Rect2(64, 13, 32, 40)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ds4bd"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2l8yg"]
 atlas = ExtResource("5_jguyx")
 region = Rect2(96, 13, 32, 40)
 
@@ -168,7 +168,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_16ay5")
 }],
-"loop": true,
+"loop": false,
 "name": &"Attack 1",
 "speed": 8.0
 }, {
@@ -235,20 +235,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2y258")
+"texture": SubResource("AtlasTexture_x63uq")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_sinu2")
+"texture": SubResource("AtlasTexture_87vur")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y3i8g")
+"texture": SubResource("AtlasTexture_ia4gf")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ds4bd")
+"texture": SubResource("AtlasTexture_2l8yg")
 }],
 "loop": true,
 "name": &"Run",
-"speed": 11.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -304,9 +304,8 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ttmuy"]
-radius = 8.0
-height = 42.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jxl8i"]
+size = Vector2(16.5, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kjq2a"]
 atlas = ExtResource("6_deid7")
@@ -391,11 +390,6 @@ animations = [{
 "loop": true,
 "name": &"Die",
 "speed": 7.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"new_animation",
-"speed": 5.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ss7b5"]
@@ -680,26 +674,24 @@ scale = Vector2(3, 3)
 script = ExtResource("1_8lod6")
 
 [node name="MainBody" type="AnimatedSprite2D" parent="."]
+process_mode = 3
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ipymt")
-animation = &"ShootBody"
-autoplay = "Idle"
-frame = 8
-frame_progress = 0.691157
+animation = &"Attack 1"
 centered = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(31, 40)
+position = Vector2(29.3333, 40)
 scale = Vector2(2, 2)
-shape = SubResource("CapsuleShape2D_ttmuy")
+shape = SubResource("RectangleShape2D_jxl8i")
 
 [node name="Die" type="AnimatedSprite2D" parent="."]
 visible = false
 position = Vector2(49, 40)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_yp4p2")
-animation = &"new_animation"
+animation = &"Die"
+autoplay = "Die"
 
 [node name="Shoot" type="AnimatedSprite2D" parent="."]
 position = Vector2(156, 43.3333)
@@ -707,8 +699,9 @@ rotation = -0.471239
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_o30t1")
 animation = &"Shoot"
-frame = 3
-frame_progress = 0.815751
+autoplay = "Shoot"
+frame = 15
+frame_progress = 1.0
 
 [node name="Shield" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -716,31 +709,36 @@ position = Vector2(32.6667, 38)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_bn6kw")
 animation = &"Shield"
-frame_progress = 0.798021
+autoplay = "Shield"
+frame_progress = 0.49101
 
-[node name="Detectors" type="Node" parent="."]
+[node name="PlayerDetect" type="Area2D" parent="."]
+position = Vector2(0, -4)
+scale = Vector2(0.333333, 0.333333)
 
-[node name="PlayerDetect" type="Area2D" parent="Detectors"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/PlayerDetect"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetect"]
 position = Vector2(102, 123)
 shape = SubResource("CircleShape2D_kh66y")
 
-[node name="MeleePlayerDetect" type="Area2D" parent="Detectors"]
+[node name="MeleePlayerDetect" type="Area2D" parent="."]
+position = Vector2(0, -4)
+scale = Vector2(0.333333, 0.333333)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/MeleePlayerDetect"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleePlayerDetect"]
 position = Vector2(102, 125)
 shape = SubResource("CircleShape2D_twpfk")
 
-[node name="ShootPlayerDetector" type="Area2D" parent="Detectors"]
+[node name="ShootPlayerDetector" type="Area2D" parent="."]
+position = Vector2(0, -4)
+scale = Vector2(0.333333, 0.333333)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/ShootPlayerDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShootPlayerDetector"]
 position = Vector2(101, 124)
 shape = SubResource("CircleShape2D_typ3o")
 
-[connection signal="body_entered" from="Detectors/PlayerDetect" to="." method="_on_player_detect_body_entered"]
-[connection signal="body_exited" from="Detectors/PlayerDetect" to="." method="_on_player_detect_body_exited"]
-[connection signal="body_entered" from="Detectors/MeleePlayerDetect" to="." method="_on_melee_player_detect_body_entered"]
-[connection signal="body_exited" from="Detectors/MeleePlayerDetect" to="." method="_on_melee_player_detect_body_exited"]
-[connection signal="body_entered" from="Detectors/ShootPlayerDetector" to="." method="_on_shoot_player_detector_body_entered"]
-[connection signal="body_exited" from="Detectors/ShootPlayerDetector" to="." method="_on_shoot_player_detector_body_exited"]
+[connection signal="body_entered" from="PlayerDetect" to="." method="_on_player_detect_body_entered"]
+[connection signal="body_exited" from="PlayerDetect" to="." method="_on_player_detect_body_exited"]
+[connection signal="body_entered" from="MeleePlayerDetect" to="." method="_on_melee_player_detect_body_entered"]
+[connection signal="body_exited" from="MeleePlayerDetect" to="." method="_on_melee_player_detect_body_exited"]
+[connection signal="body_entered" from="ShootPlayerDetector" to="." method="_on_shoot_player_detector_body_entered"]
+[connection signal="body_exited" from="ShootPlayerDetector" to="." method="_on_shoot_player_detector_body_exited"]

@@ -2,12 +2,11 @@ extends State
 class_name AState
 
 func _ready():
-	# Ensure the parent State setup is called before accessing main_body
-	if not main_body:
-		return
+	pass
 
-func idle():
-	if main_body:
-		main_body.play("Attack1")
-	else:
-		print("null")
+func Shoot():
+	animation.play("shoot")
+	#animation.play
+
+func exit():
+	print ("Exit Attack State")

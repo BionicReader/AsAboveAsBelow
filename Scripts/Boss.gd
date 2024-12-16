@@ -3,6 +3,9 @@ extends CharacterBody2D
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
+@onready var shootAni = $Shoot
+@onready var die = $Die
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -25,11 +28,13 @@ func _physics_process(delta):
 
 func change_state(new_state_name):
 	if state != null:
+		state.exit()
 		state.queue_free()
 	state = state_factory.get_state(new_state_name).new()
 	state.setup("change_state", $MainBody, self)
 	state.name = "current_state"
 	add_child(state)
+	
 
 
 func _on_player_detect_body_entered(body):

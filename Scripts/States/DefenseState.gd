@@ -11,3 +11,6 @@ func idle():
 		main_body.play("Attack2")
 	else:
 		print("null")
+
+func exit():
+	print ("Exit Defense State")
