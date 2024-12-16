@@ -16,9 +16,11 @@ var is_performing_action = false
 var is_moving = false
 var is_jumping = false
 
-@onready var sword = $Sword/sword
+var hit = false
+var is_input_blocked = false
 
 # Node references
+@onready var sword = $Sword/sword
 @onready var move_area = $MoveArea
 @onready var player_normal = $PlayerNorm
 @onready var player_beast = $Powered
@@ -33,30 +35,40 @@ func _ready():
 	pass
 
 func _physics_process(delta):
-	# Reset state flags at start of frame
-	is_moving = false
-	is_performing_action = false
+	if is_input_blocked == false:
+		# Check if just landed
+		if is_jumping and ground_ray.is_colliding():
+			is_jumping = false
+			# Reset to idle or run animation based on movement
+			if abs(velocity.x) < 10:  # Almost stationary
+				player_normal.play("Idle")
+			else:
+				player_normal.play("Run")
 
-	# Handle gravity for all forms when not grounded
-	if not ground_ray.is_colliding():
-		velocity.y += GRAVITY * delta
-	
-	# Get input
-	var input_vector = get_input_vector()
-	
-	# Apply movement
-	if ground_ray.is_colliding():
-		is_jumping = false
+		# Rest of the existing _physics_process remains the same
+		# Handle gravity for all forms when not grounded
+		if not ground_ray.is_colliding():
+			velocity.y += GRAVITY * delta
+
+		# Get input
+		var input_vector = get_input_vector()
+
+		# Always allow horizontal movement, even when jumping
 		handle_ground_movement(input_vector, delta)
-	
-	# Handle actions
-	handle_actions()
-	
-	# Determine if character should be idle
-	update_animation_state()
-	
-	# Move the character
-	move_and_slide()
+
+		# Handle jumping
+		handle_jump(input_vector)
+
+		# Handle actions
+		handle_actions()
+
+		# Determine if character should be idle
+		update_animation_state()
+
+		# Move the character
+		move_and_slide()
+	else:
+		return
 
 func get_input_vector() -> Vector2:
 	# Gather input as a vector for more flexible movement
@@ -83,31 +95,45 @@ func handle_ground_movement(input_vector: Vector2, delta: float):
 	else:
 		# Apply friction to stop sliding
 		velocity.x = move_toward(velocity.x, 0, SPEED * FRICTION)
+		if ground_ray.is_colliding() and not hit:
+			player_normal.play("Idle")
+
+func handle_jump(input_vector: Vector2):
+	var jump_pressed = Input.is_action_just_pressed("jump")
 	
-	# Handle jumping
-	if Input.is_action_just_pressed("jump") and current_form != PlayerForm.BEAST:
-		is_jumping = true
-		perform_jump()
- 
+	# Jumping logic with air control
+	if jump_pressed and current_form != PlayerForm.BEAST:
+		if ground_ray.is_colliding():
+			perform_jump()
+
+	# Air control (allow horizontal movement when jumping)
+	if is_jumping and not ground_ray.is_colliding():
+		# Reduce air control speed (optional)
+		var air_control_speed = SPEED * 0.7
+		velocity.x = input_vector.x * air_control_speed
+
 func update_movement_animation(direction: float):
 	if current_form != PlayerForm.BEAST:
 		SPEED = 600.0
-		player_normal.play("Run")
+		if not is_jumping:
+			player_normal.play("Run")
 	else:
 		SPEED = 200.0
-		player_beast.play("WalkState")
+		if not is_jumping:
+			player_beast.play("WalkState")
 		is_moving = true
-	player_normal.scale.x = sign(direction)
+	
+	# Flip character and attached objects
+	player_normal.scale.x = 1 * sign(direction)
 	player_beast.scale.x = 0.7 * sign(direction)
 	$TailDown.scale.x = 1 * sign(direction)
 	$Sword.scale.x = 1 * sign(direction)
-		
+
 func perform_jump():
 	is_jumping = true
-	if ground_ray.is_colliding():
-		print("Jump")
-		player_normal.play("Jump")
-		velocity.y = -JUMP_FORCE
+	print("Jump")
+	player_normal.play("Jump")
+	velocity.y = -JUMP_FORCE
 
 func handle_actions():
 	# Form change
@@ -228,7 +254,7 @@ func handle_normal_actions():
 
 func update_animation_state():
 	# Only go to idle if no actions, no movement, and no jumping
-	if not is_performing_action and not is_moving and not is_jumping:
+	if not is_performing_action and not is_moving and not is_jumping and not hit:
 		if current_form != PlayerForm.BEAST:
 			player_normal.play("Idle")
 		else:
@@ -265,9 +291,17 @@ func _on_tail_side_body_entered(body):
 @onready var health = $Health
 
 func _on_core_area_entered(area):
-	if area.name == "Bullet":
+	if area.name == "Swish":
+		hit = true
+		player_normal.play("Hit")
 		print("bullet")
-		health.step = -10
-		health.show_percentage
-	elif area.name == "Swish":
-		print('swish')
+	
+		#player_normal.visible = false
+		#$PlayerDeath.visible = true
+		#is_input_blocked = true
+		#$PlayerDeath.play("Death")
+		#print('swish')
+
+
+func _on_core_area_exited(area):
+	hit = false

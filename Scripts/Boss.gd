@@ -55,6 +55,7 @@ func _process(delta):
 			main_body.visible = false
 		elif defense == true:
 			main_body.visible = false
+			shoot_body.visible = false
 	else:
 		invisible()
 
@@ -77,9 +78,10 @@ func _on_melee_player_detect_body_entered(body):
 	shoot_body.visible = false
 	if body.name == "Hero" and !dead:
 		defense = true
+		$Shoot/Bullet/bullet.disabled =true
+		$AnimationPlayer.play("Swipe")
 		main_body.visible = false
 		attackAni.visible = true
-		swish.disabled = false
 		chase = false
 		attack = false
 		change_state("defense")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=125 format=3 uid="uid://b57djdy70u8fx"]
+[gd_scene load_steps=124 format=3 uid="uid://b57djdy70u8fx"]
 
 [ext_resource type="Script" path="res://Scripts/Hero.gd" id="1_5stw2"]
 [ext_resource type="Texture2D" uid="uid://c23sn1i7jkvhy" path="res://Art/Sprites/SS - The Blind Huntress (Hero)/Sprite Sheet/7. Hit 48 x 48.png" id="2_3tasp"]
@@ -14,10 +14,6 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_66fva"]
 size = Vector2(15, 39)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n6y7c"]
-atlas = ExtResource("2_3tasp")
-region = Rect2(0, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_awifu"]
 atlas = ExtResource("2_3tasp")
@@ -130,9 +126,6 @@ region = Rect2(336, 0, 48, 48)
 [sub_resource type="SpriteFrames" id="SpriteFrames_rvfph"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_n6y7c")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_awifu")
 }, {
@@ -906,6 +899,8 @@ shape = SubResource("RectangleShape2D_66fva")
 [node name="PlayerNorm" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_rvfph")
 animation = &"Hit"
+frame = 2
+frame_progress = 1.0
 
 [node name="Powered" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -1009,5 +1004,6 @@ wait_time = 0.1
 [connection signal="body_entered" from="TailDown" to="." method="_on_tail_down_body_entered"]
 [connection signal="timeout" from="TailDelay" to="." method="_on_tail_delay_timeout"]
 [connection signal="area_entered" from="Core" to="." method="_on_core_area_entered"]
+[connection signal="area_exited" from="Core" to="." method="_on_core_area_exited"]
 [connection signal="body_entered" from="TailSide" to="." method="_on_tail_side_body_entered"]
 [connection signal="timeout" from="TailSide2" to="." method="_on_tail_side_2_timeout"]

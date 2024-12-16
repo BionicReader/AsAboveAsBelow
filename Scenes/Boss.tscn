@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://b6tanufx7seix"]
+[gd_scene load_steps=76 format=3 uid="uid://b6tanufx7seix"]
 
 [ext_resource type="Script" path="res://Scripts/Boss.gd" id="1_8lod6"]
 [ext_resource type="Texture2D" uid="uid://b5yxc7hj3lt58" path="res://Art/Sprites/SHADOW Series - Frost Curse Boss/Sprite/3. attack 1 - 1.png" id="2_kgb7w"]
@@ -473,12 +473,12 @@ radius = 8.25
 height = 52.5
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w1jsf"]
-radius = 168.0
-height = 1713.0
+radius = 433.5
+height = 1767.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vwkyr"]
-radius = 128.5
-height = 432.0
+radius = 15.0
+height = 396.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dt8nd"]
 radius = 129.5
@@ -495,7 +495,7 @@ tracks/0/path = NodePath("Shoot/Bullet/bullet:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.6, 0.9),
+"times": PackedFloat32Array(0, 0.7, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
@@ -831,12 +831,42 @@ tracks/13/keys = {
 "update": 0,
 "values": [Vector2(475.5, 120)]
 }
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Attack/Swish/swish:disabled")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_wfubd"]
+resource_name = "Swipe"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Attack/Swish/swish:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_28q0m"]
 _data = {
 "Bullet": SubResource("Animation_a0qyp"),
 "Flip": SubResource("Animation_8m4hw"),
-"RESET": SubResource("Animation_lqxjt")
+"RESET": SubResource("Animation_lqxjt"),
+"Swipe": SubResource("Animation_wfubd")
 }
 
 [node name="Boss" type="CharacterBody2D"]
@@ -901,8 +931,7 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_bn6kw")
 animation = &"Attack"
 autoplay = "Attack"
-frame = 1
-frame_progress = 0.512058
+frame_progress = 0.224884
 
 [node name="Swish" type="Area2D" parent="Attack"]
 
@@ -912,6 +941,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_dn5ti")
 
 [node name="PlayerDetect" type="Area2D" parent="."]
+visible = false
 position = Vector2(0, -4)
 scale = Vector2(0.333333, 0.333333)
 collision_layer = 3
@@ -929,11 +959,12 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleePlayerDetect"]
-position = Vector2(102, 125)
+position = Vector2(94.5001, 238.5)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_vwkyr")
 
 [node name="ShootPlayerDetector" type="Area2D" parent="."]
+visible = false
 position = Vector2(0, -4)
 scale = Vector2(0.333333, 0.333333)
 collision_layer = 3
