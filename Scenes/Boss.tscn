@@ -710,7 +710,7 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_bn6kw")
 animation = &"Shield"
 autoplay = "Shield"
-frame_progress = 0.49101
+frame_progress = 0.502825
 
 [node name="PlayerDetect" type="Area2D" parent="."]
 position = Vector2(0, -4)

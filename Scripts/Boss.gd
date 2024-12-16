@@ -13,8 +13,8 @@ var state
 var state_factory
 
 var chase = false
-var melee = false
-var shoot = false
+var defense = false
+var attack = false
 
 func _ready():
 	state_factory = StateFactory.new()
@@ -35,38 +35,53 @@ func change_state(new_state_name):
 	state.name = "current_state"
 	add_child(state)
 	
-
+func _process(delta):
+	if attack == false:
+		shootAni.visible = false
+	elif attack == true:
+		shootAni.visible = true
 
 func _on_player_detect_body_entered(body):
 	if body.name == "Hero":
 		chase = true
+		attack = false
+		defense = false
 		change_state("chase")
 		
 func _on_player_detect_body_exited(body):
 	if body.name == "Hero":
 		chase = false
+		attack = false
+		defense = false
 		change_state("idle")
 
 
 func _on_melee_player_detect_body_entered(body):
 	if body.name == "Hero":
-		melee = true
-		shoot = false
+		defense = true
+		chase = false
+		attack = false
+		change_state("defense")
 
 func _on_melee_player_detect_body_exited(body):
 	if body.name == "Hero":
-		melee = false
-		shoot = true
+		defense = false
+		chase = false
+		attack = false
+		change_state("idle")
 
 
 func _on_shoot_player_detector_body_entered(body):
 	if body.name == "Hero":
-		shoot = true
-		melee = false
+		defense = false
+		chase = false
+		attack = true
+		change_state("attack")
 
 
 func _on_shoot_player_detector_body_exited(body):
 	if body.name == "Hero":
-		shoot = false
-		melee = false
+		defense = false
+		chase = true
+		attack = false
 		change_state("chase")

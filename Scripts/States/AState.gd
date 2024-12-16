@@ -1,12 +1,16 @@
 extends State
 class_name AState
 
-func _ready():
-	pass
+@onready var boss = $"."
 
-func Shoot():
-	animation.play("shoot")
-	#animation.play
+func _ready():
+	atk()
+
+func atk():
+	animation.play("Shoot")
+	animation.play("ShootBody")
+	get_tree().create_timer(0.5).timeout
+	boss.position.x += 100
 
 func exit():
-	print ("Exit Attack State")
+	print ("Exit attack state")

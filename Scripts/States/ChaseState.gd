@@ -22,7 +22,7 @@ func _physics_process(delta):
 				
 		Boss.velocity.x = direction.x * SPEED
 	
-	if Boss.shoot == true:
+	if Boss.attack == true:
 		Boss.velocity.x = 0
 		Boss.change_state("attack")
 

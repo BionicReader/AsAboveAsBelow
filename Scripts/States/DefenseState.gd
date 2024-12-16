@@ -2,15 +2,10 @@ extends State
 class_name DefenseState
 
 func _ready():
-	# Ensure the parent State setup is called before accessing main_body
-	if not main_body:
-		return
+	atk()
 
-func idle():
-	if main_body:
-		main_body.play("Attack2")
-	else:
-		print("null")
+func atk():
+	animation.play("Attack 1")
 
 func exit():
-	print ("Exit Defense State")
+	print ("Exit defense state")
