@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://dl6chopwudp0t"]
+
+[ext_resource type="Texture2D" uid="uid://dg2stfqfkpb1h" path="res://Art/TileSets/PixelArtPack-SideScroller-05 (extract/Enviro/Tile01.png" id="1_xveb5"]
+[ext_resource type="Script" path="res://Sign.gd" id="2_yupk1"]
+[ext_resource type="FontFile" uid="uid://dshavh8mto4dq" path="res://Art/TileSets/DungeonFont.ttf" id="3_08573"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wo6wg"]
+size = Vector2(224, 160)
+
+[node name="Sign" type="Sprite2D"]
+texture = ExtResource("1_xveb5")
+script = ExtResource("2_yupk1")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -19.0
+offset_top = -65.0
+offset_right = 66.0
+offset_bottom = 192.0
+scale = Vector2(0.5, 0.5)
+theme_override_colors/font_color = Color(0.624492, 0.599475, 0.545222, 1)
+theme_override_fonts/font = ExtResource("3_08573")
+theme_override_font_sizes/font_size = 256
+text = "?"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_wo6wg")
+
+[node name="Label2" type="Label" parent="."]
+offset_left = -1456.0
+offset_top = -1040.0
+offset_right = 4560.0
+offset_bottom = 1353.0
+scale = Vector2(0.4, 0.4)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_08573")
+theme_override_font_sizes/font_size = 254
+text = "Cursed by a monster, you can transform
+into a beast at will.
+ This form grants immense strength but 
+makes you sluggish.
+Use your tail to crush walls and ground, 
+but rely on your normal form for speed, 
+agility, and quick strikes. 
+
+Beware—danger lurks beneath the surface."
+horizontal_alignment = 1
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

@@ -292,12 +292,12 @@ func _on_core_area_entered(area):
 	if health > 0:  # Ensure positive health
 		if area.name == "Bullet":
 			hit = true
-			health -= 5  # More idiomatic way to reduce health
+			health -= 2  # More idiotic way to reduce health
 			player_normal.play("Hit")
 			print("bullet")
 		elif area.name == "Swish":
 			hit = true
-			health -= 10
+			health -= 5
 			player_normal.play("Hit")
 			print("swish")
 		

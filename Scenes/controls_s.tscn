@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://dykvyup7b3baj"]
+
+[ext_resource type="Texture2D" uid="uid://cvjdqriqjvkfs" path="res://Art/TileSets/PixelArtPack-SideScroller-05 (extract/Enviro/Tile02.png" id="1_r3hls"]
+[ext_resource type="Script" path="res://Sprite2D.gd" id="2_obglw"]
+[ext_resource type="FontFile" uid="uid://dshavh8mto4dq" path="res://Art/TileSets/DungeonFont.ttf" id="3_4nw6a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yjql6"]
+size = Vector2(416, 352)
+
+[node name="ControlsS" type="Sprite2D"]
+texture = ExtResource("1_r3hls")
+script = ExtResource("2_obglw")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -17.0
+offset_top = -62.0
+offset_right = 68.0
+offset_bottom = 193.0
+scale = Vector2(0.5, 0.5)
+theme_override_colors/font_color = Color(0.597137, 0.473489, 0.27583, 1)
+theme_override_fonts/font = ExtResource("3_4nw6a")
+theme_override_font_sizes/font_size = 254
+text = "?"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_yjql6")
+
+[node name="Label2" type="Label" parent="."]
+offset_left = -2992.0
+offset_top = -2032.0
+offset_right = 1488.0
+offset_bottom = -229.0
+theme_override_fonts/font = ExtResource("3_4nw6a")
+theme_override_font_sizes/font_size = 254
+text = "To change form, press Enter. 
+Use A, W, and D to move. While human, W will jump, and left-click will attack.
+
+As a monster, W will tail slam the ground, while left and right-clicks control tail swings.
+Both actions can break tiles"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

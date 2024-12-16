@@ -49,7 +49,7 @@ func change_state(new_state_name):
 	
 func _process(delta):
 	healthbar.health = health
-	if health == 0:
+	if health <= 0:
 		death()
 	
 	if shootAni != null and !dead:
@@ -136,11 +136,12 @@ func reset():
 	$AnimationPlayer.play("RESET")
 
 func _on_melee_player_detect_area_entered(area):
-	if health != 0:
-		if area.name == "Sword":
-			health += -10
-		elif area.name == "TailSide":
-			health += -20
+	if area.name == "Sword":
+		health += -10
+	elif area.name == "TailSide":
+		health += -20
+	elif health <= 0:
+		death()
 		
 func death():
 	velocity.x = 0
