@@ -100,7 +100,7 @@ func update_movement_animation(direction: float):
 	player_normal.scale.x = sign(direction)
 	player_beast.scale.x = 0.7 * sign(direction)
 	$TailDown.scale.x = 1 * sign(direction)
-	$Sword.scale.x = -1.2 * sign(direction)
+	$Sword.scale.x = 1 * sign(direction)
 		
 func perform_jump():
 	is_jumping = true
@@ -129,36 +129,60 @@ func initiate_form_change():
 	
 # Declare the tail timer
 @onready var tail_cooldown_timer = $TailDelay
+@onready var tail_side_2_timer = $TailSide2
+@onready var tailD = $TailDown/tailD
+@onready var tailSide = $TailSide/tailSide
+
+# Track active actions to prevent interference
+var is_tail_down_active = false
+var is_tail_side_active = false
+
 func handle_beast_actions():
 	# Prioritize attack/hit actions
 	if !is_moving:
 		if Input.is_action_pressed("hitR"):
 			player_beast.play("BreakSide")
 			player_beast.scale.x = 0.75
+			$TailSide.scale.x = 1
 			is_performing_action = true
+			var tailD_timer = get_tree().create_timer(0.3)  # Adjust duration as needed
+			tailD_timer.timeout.connect(func():
+				tailSide.disabled = false
+				var power_timer = get_tree().create_timer(0.5)  # Adjust duration as needed
+				power_timer.timeout.connect(func():
+					tailSide.disabled = true
+				)
+			)
 		elif Input.is_action_pressed("hitL"):
 			player_beast.play("BreakSide")
 			player_beast.scale.x = -0.75
+			$TailSide.scale.x = -1
 			is_performing_action = true
+			var tailS_timer = get_tree().create_timer(0.3)  # Adjust duration as needed
+			tailS_timer.timeout.connect(func():
+				tailSide.disabled = false
+			)
+			tailSide.disabled = true
+			print("here")
 		elif Input.is_action_pressed("hitD"):
 			player_beast.play("BreakDown")
 			is_performing_action = true
-			handle_tail()
+			var tailS2_timer = get_tree().create_timer(0.3)  # Adjust duration as needed
+			tailS2_timer.timeout.connect(func():
+				tailD.disabled = false
+			)
+			tailD.disabled = true
+		
+	return
 
-# Separate function to handle tail logic and start cooldown timer
-func handle_tail():
-	if tail_cooldown_timer.is_stopped():
-		tail_cooldown_timer.start() # Start the cooldown timer
-		$TailDown/tailD.disabled = true
-# Handle the release of the button outside of the timer logic
+# Monitor input release for cleanup
 func _process(delta):
 	if Input.is_action_just_released("hitD"):
-		$TailDown/tailD.disabled = true
-		tail_cooldown_timer.stop()
-		
-func _on_tail_delay_timeout():
-	$TailDown/tailD.disabled = false
-	handle_tail()
+		tailD.disabled = true
+	elif Input.is_action_just_released("hitR") or Input.is_action_just_released("hitL"):
+		print("done")
+		tailSide.disabled = true
+	return
 	
 func handle_normal_actions():
 	if Input.is_action_just_pressed("attack"):
@@ -226,7 +250,9 @@ func _on_tail_down_body_entered(body: Node):
 	if body is BreakableTile:
 		body.break_tile()
 		
-		
+func _on_tail_side_body_entered(body):
+	if body is BreakableTile:
+		body.break_tile()
 
 @onready var health = $Health
 

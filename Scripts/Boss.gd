@@ -127,20 +127,25 @@ func reset():
 
 func _on_melee_player_detect_area_entered(area):
 	if area.name == "Sword":
-		velocity.x = 0
-		invisible()
-		var die_timer = get_tree().create_timer(0.01)  # Adjust duration as needed
-		die_timer.timeout.connect(func():
-			print("done")
-			dead = true
-			die.visible = true
-			die.play("Die")
-			var death_timer = get_tree().create_timer(2.0)  # Adjust duration as needed
-			death_timer.timeout.connect(func():
-				self.queue_free()
-			)
+		death()
+		pass
+	elif area.name == "TailSide":
+		death()
+
+func death():
+	velocity.x = 0
+	invisible()
+	var die_timer = get_tree().create_timer(0.01)  # Adjust duration as needed
+	die_timer.timeout.connect(func():
+		print("done")
+		dead = true
+		die.visible = true
+		die.play("Die")
+		var death_timer = get_tree().create_timer(2.0)  # Adjust duration as needed
+		death_timer.timeout.connect(func():
+			self.queue_free()
 		)
-		
+	)
 
 func invisible():
 	$PlayerDetect/CollisionShape2D.disabled = true

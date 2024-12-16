@@ -1,4 +1,4 @@
-[gd_scene load_steps=124 format=3 uid="uid://b57djdy70u8fx"]
+[gd_scene load_steps=125 format=3 uid="uid://b57djdy70u8fx"]
 
 [ext_resource type="Script" path="res://Scripts/Hero.gd" id="1_5stw2"]
 [ext_resource type="Texture2D" uid="uid://c23sn1i7jkvhy" path="res://Art/Sprites/SS - The Blind Huntress (Hero)/Sprite Sheet/7. Hit 48 x 48.png" id="2_3tasp"]
@@ -454,7 +454,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"BreakSide",
-"speed": 10.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -890,6 +890,10 @@ height = 42.0
 radius = 5.0
 height = 36.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3bkit"]
+radius = 21.0
+height = 60.0
+
 [node name="CharacterBody2D" type="CharacterBody2D"]
 collision_mask = 2
 floor_constant_speed = true
@@ -908,9 +912,9 @@ visible = false
 position = Vector2(4, -9)
 scale = Vector2(0.7, 0.7)
 sprite_frames = SubResource("SpriteFrames_ylh78")
-animation = &"BreakDown"
-frame = 2
-frame_progress = 0.641135
+animation = &"BreakSide"
+frame = 6
+frame_progress = 1.0
 
 [node name="Change" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -1)
@@ -969,7 +973,7 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="sword" type="CollisionShape2D" parent="Sword"]
-position = Vector2(-23, -3)
+position = Vector2(37, -2)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_jhrpd")
 disabled = true
@@ -990,7 +994,20 @@ value = 100.0
 rounded = true
 show_percentage = false
 
+[node name="TailSide" type="Area2D" parent="."]
+
+[node name="tailSide" type="CollisionShape2D" parent="TailSide"]
+position = Vector2(37, -2)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_3bkit")
+disabled = true
+
+[node name="TailSide2" type="Timer" parent="."]
+wait_time = 0.1
+
 [connection signal="timeout" from="ChangeAwait" to="." method="_on_change_await_timeout"]
 [connection signal="body_entered" from="TailDown" to="." method="_on_tail_down_body_entered"]
 [connection signal="timeout" from="TailDelay" to="." method="_on_tail_delay_timeout"]
 [connection signal="area_entered" from="Core" to="." method="_on_core_area_entered"]
+[connection signal="body_entered" from="TailSide" to="." method="_on_tail_side_body_entered"]
+[connection signal="timeout" from="TailSide2" to="." method="_on_tail_side_2_timeout"]
