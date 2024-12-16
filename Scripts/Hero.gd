@@ -232,6 +232,5 @@ func _on_tail_down_body_entered(body: Node):
 
 func _on_core_area_entered(area):
 	if area.name == "Bullet":
-		pass
-		#health.step = -10
-		#health.show_percentage
+		health.step = -10
+		health.show_percentage

@@ -3375,6 +3375,7 @@ collision_mask = 3
 floor_constant_speed = false
 
 [node name="Camera2D" type="Camera2D" parent="Hero"]
+zoom = Vector2(0.5, 0.5)
 
 [node name="BREAKABLETILES - DNT" type="Node" parent="."]
 
