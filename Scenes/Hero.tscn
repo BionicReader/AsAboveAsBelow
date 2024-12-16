@@ -1,4 +1,4 @@
-[gd_scene load_steps=124 format=3 uid="uid://b57djdy70u8fx"]
+[gd_scene load_steps=125 format=3 uid="uid://b57djdy70u8fx"]
 
 [ext_resource type="Script" path="res://Scripts/Hero.gd" id="1_5stw2"]
 [ext_resource type="Texture2D" uid="uid://c23sn1i7jkvhy" path="res://Art/Sprites/SS - The Blind Huntress (Hero)/Sprite Sheet/7. Hit 48 x 48.png" id="2_3tasp"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bics05jud30i8" path="res://Art/Assets/Free Smoke Fx Pixel 2/Free Smoke Fx  Pixel 05.png" id="9_dr7i5"]
 [ext_resource type="Texture2D" uid="uid://edggm5fryrvg" path="res://Art/Sprites/SS - The Blind Huntress (Hero)/Sprite Sheet/8. Death 76 x 48.png" id="10_18la7"]
 [ext_resource type="Texture2D" uid="uid://dlhxkdrl1vs3" path="res://Art/Sprites/SS - The Blind Huntress (Hero)/Sprite Sheet/5. Attack 131 x 56.png" id="11_0nwyb"]
+[ext_resource type="PackedScene" uid="uid://drgqnmvgpjxw1" path="res://HealthBar.tscn" id="12_ayv4x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_66fva"]
 size = Vector2(15, 39)
@@ -979,16 +980,6 @@ disabled = true
 position = Vector2(1, 0)
 shape = SubResource("CapsuleShape2D_r552a")
 
-[node name="Health" type="ProgressBar" parent="."]
-offset_left = -12.0
-offset_top = -25.0
-offset_right = 13.0
-offset_bottom = -21.0
-step = 10.0
-value = 100.0
-rounded = true
-show_percentage = false
-
 [node name="TailSide" type="Area2D" parent="."]
 
 [node name="tailSide" type="CollisionShape2D" parent="TailSide"]
@@ -999,6 +990,12 @@ disabled = true
 
 [node name="TailSide2" type="Timer" parent="."]
 wait_time = 0.1
+
+[node name="HealthBar" parent="." instance=ExtResource("12_ayv4x")]
+offset_left = -18.0
+offset_top = -30.0
+offset_right = 18.0
+offset_bottom = -25.0
 
 [connection signal="timeout" from="ChangeAwait" to="." method="_on_change_await_timeout"]
 [connection signal="body_entered" from="TailDown" to="." method="_on_tail_down_body_entered"]

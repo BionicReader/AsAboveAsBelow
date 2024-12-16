@@ -7,7 +7,7 @@ const SPEED = 10
 @onready var main_body = $MainBody
 @onready var shootAni = $Shoot
 @onready var shoot_body = $ShootBody
-
+@onready var healthbar = $HealthBar
 @onready var swish = $Attack/Swish/swish
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -20,9 +20,13 @@ var chase = false
 var defense = false
 var attack = false
 
+var health
+
 var dead = false
 
 func _ready():
+	health = 100
+	healthbar.init_health(health)
 	$AnimationPlayer.play("RESET")
 	state_factory = StateFactory.new()
 	change_state("idle")
@@ -44,6 +48,10 @@ func change_state(new_state_name):
 	add_child(state)
 	
 func _process(delta):
+	healthbar.health = health
+	if health == 0:
+		death()
+	
 	if shootAni != null and !dead:
 		if attack == false:
 			shootAni.visible = false
@@ -129,10 +137,9 @@ func reset():
 
 func _on_melee_player_detect_area_entered(area):
 	if area.name == "Sword":
-		death()
-		pass
+		health += -5
 	elif area.name == "TailSide":
-		death()
+		health += -15
 
 func death():
 	velocity.x = 0

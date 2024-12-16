@@ -18,6 +18,7 @@ var is_jumping = false
 
 var hit = false
 var is_input_blocked = false
+var health
 
 # Node references
 @onready var sword = $Sword/sword
@@ -29,10 +30,11 @@ var is_input_blocked = false
 @onready var attack_anim = $PlayerAttack
 @onready var ground_ray = $groundRay
 @onready var change_timer = $ChangeAwait
+@onready var healthbar = $HealthBar
 
 func _ready():
-	# Initialize any startup logic if needed
-	pass
+	health = 100
+	healthbar.init_health(health)
 
 func _physics_process(delta):
 	if is_input_blocked == false:
@@ -211,6 +213,10 @@ func handle_beast_actions():
 
 # Monitor input release for cleanup
 func _process(delta):
+	healthbar.health = health
+	if healthbar.health == 0:
+		die()
+	
 	if Input.is_action_just_released("hitD"):
 		tailD.disabled = true
 	elif Input.is_action_just_released("hitR") or Input.is_action_just_released("hitL"):
@@ -288,20 +294,40 @@ func _on_tail_side_body_entered(body):
 	if body is BreakableTile:
 		body.break_tile()
 
-@onready var health = $Health
-
 func _on_core_area_entered(area):
-	if area.name == "Swish":
-		hit = true
-		player_normal.play("Hit")
-		print("bullet")
-	
-		#player_normal.visible = false
-		#$PlayerDeath.visible = true
-		#is_input_blocked = true
-		#$PlayerDeath.play("Death")
-		#print('swish')
+	if health > 0:  # Ensure positive health
+		if area.name == "Bullet":
+			hit = true
+			health -= 5  # More idiomatic way to reduce health
+			player_normal.play("Hit")
+			print("bullet")
+		elif area.name == "Swish":
+			hit = true
+			health -= 10
+			player_normal.play("Hit")
+			print("swish")
+		
+		# Only die if health reaches 0
+		if health <= 0:
+			die()
+	else:
+		die()
 
+func die():
+	if current_form == PlayerForm.BEAST:
+		player_beast.visible = false
+	player_normal.visible = false
+	$Core/core.disabled = true
+	is_input_blocked = true
+	var die_timer = get_tree().create_timer(0.01)  # Adjust duration as needed
+	die_timer.timeout.connect(func():
+		$PlayerDeath.visible = true
+		$PlayerDeath.play("Death")
+		var death_timer = get_tree().create_timer(0.9)  # Adjust duration as needed
+		death_timer.timeout.connect(func():
+			self.queue_free()
+		)
+	)
 
 func _on_core_area_exited(area):
 	hit = false
