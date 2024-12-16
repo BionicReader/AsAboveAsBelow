@@ -2,6 +2,7 @@ extends State
 class_name AState
 
 func _ready():
+	print("attack")
 	atk()
 
 func atk():

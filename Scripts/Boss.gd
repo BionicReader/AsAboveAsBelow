@@ -43,14 +43,17 @@ func change_state(new_state_name):
 	add_child(state)
 	
 func _process(delta):
-	if shootAni != null:
+	if shootAni != null and !dead:
 		if attack == false:
 			shootAni.visible = false
 			shoot_body.visible = false
+			main_body.visible = true
 		elif attack == true and !dead:
 			shootAni.visible = true
 			shoot_body.visible = true
 			main_body.visible = false
+	else:
+		invisible()
 
 func _on_player_detect_body_entered(body):
 	swish.disabled = true

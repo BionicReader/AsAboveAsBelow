@@ -1,7 +1,7 @@
 extends State
 class_name DieState
 
-func _process(delta):
+func _ready():
 	animation.stop()
 
 func exit():

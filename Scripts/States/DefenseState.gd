@@ -4,6 +4,7 @@ class_name DefenseState
 @onready var boss = $"."
 
 func _ready():
+	print("defend")
 	atk()
 
 func atk():

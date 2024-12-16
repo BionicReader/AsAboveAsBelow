@@ -2,13 +2,11 @@ extends State
 class_name IdleState
 
 func _ready():
-	pass
+	print("idle")
+	idle()
 
 func idle():
-	if main_body:
-		main_body.play("Idle")
-	else:
-		print("null")
+	animation.play("Idle")
 		
 		
 func exit():

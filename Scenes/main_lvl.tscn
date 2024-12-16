@@ -3400,6 +3400,8 @@ script = ExtResource("5_8v4cp")
 tilemap = NodePath("../../DigMap")
 
 [node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
 
 [node name="LeftW" type="CollisionShape2D" parent="Walls"]
 position = Vector2(-394, -89)

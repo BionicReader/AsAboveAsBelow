@@ -4,6 +4,7 @@ class_name ChaseState
 const SPEED = 500.0
 
 func _ready():
+	print("chase")
 	chase_H()
 
 func _physics_process(delta):
@@ -22,9 +23,14 @@ func _physics_process(delta):
 				
 		Boss.velocity.x = direction.x * SPEED
 	
-	if Boss.attack == true:
+	elif Boss.attack == true:
 		Boss.velocity.x = 0
 		Boss.change_state("attack")
+		print("must find")
+	else:
+		print("where are you!?!")
+		Boss.velocity.x = 0
+		Boss.change_state("idle")
 
 func chase_H():
 	animation.play("Run")
