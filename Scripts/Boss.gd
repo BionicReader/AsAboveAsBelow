@@ -6,6 +6,7 @@ const SPEED = 10
 @onready var die = $Die
 @onready var main_body = $MainBody
 @onready var shootAni = $Shoot
+@onready var shoot_body = $ShootBody
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -24,12 +25,10 @@ func _ready():
 	change_state("idle")
 
 func _physics_process(delta):
-	# Add gravity effect if not on the floor
+	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
-		
 	move_and_slide()
-
 
 func change_state(new_state_name):
 	if state != null:
@@ -44,8 +43,12 @@ func _process(delta):
 	if shootAni != null:
 		if attack == false:
 			shootAni.visible = false
+			shoot_body.visible = false
+			main_body.visible = true
 		elif attack == true:
 			shootAni.visible = true
+			shoot_body.visible = true
+			main_body.visible = false
 
 func _on_player_detect_body_entered(body):
 	if body.name == "Hero" and ! dead:
@@ -102,6 +105,11 @@ func _on_shoot_player_detector_body_exited(body):
 		$Shoot/Bullet/bullet.disabled = true
 
 
+func flip():
+	$AnimationPlayer.play("Flip")
+
+func reset():
+	$AnimationPlayer.play("RESET")
 
 func _on_melee_player_detect_area_entered(area):
 	if area.name == "Sword":

@@ -7,7 +7,7 @@ var animation: AnimatedSprite2D  # Explicitly declare the animation variable wit
 @onready var die = $Die
 @onready var shoot = $Shoot
 @onready var attack = $Attack
-
+@onready var shootbody = $ShootBody
 
 var persistent_state
 
