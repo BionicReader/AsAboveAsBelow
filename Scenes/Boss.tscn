@@ -976,17 +976,17 @@ position = Vector2(475.5, 120)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_dt8nd")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_28q0m")
-}
-
 [node name="HealthBar" parent="." instance=ExtResource("8_v12hp")]
 offset_left = -2.0
 offset_top = -17.5
 offset_right = 73.0
 offset_bottom = -4.5
 step = 1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_28q0m")
+}
 
 [connection signal="body_entered" from="PlayerDetect" to="." method="_on_player_detect_body_entered"]
 [connection signal="body_exited" from="PlayerDetect" to="." method="_on_player_detect_body_exited"]
