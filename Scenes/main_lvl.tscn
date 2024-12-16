@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://b6tanufx7seix" path="res://Scenes/Boss.tscn" id="6_t3w0f"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cnmkh"]
-load_path = "res://.godot/imported/Dungeon Ruins Tileset Day.png-60d98875f85e01af54bdab1e8b48d9b6.ctex"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0f0vc"]
 texture = SubResource("CompressedTexture2D_cnmkh")

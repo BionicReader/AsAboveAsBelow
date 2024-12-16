@@ -144,11 +144,13 @@ func handle_beast_actions():
 			player_beast.play("BreakSide")
 			player_beast.scale.x = 0.75
 			$TailSide.scale.x = 1
+			player_normal.scale.x = 1
+			$Sword.scale.x = 1
 			is_performing_action = true
-			var tailD_timer = get_tree().create_timer(0.2)  # Adjust duration as needed
+			var tailD_timer = get_tree().create_timer(0.3) # Adjust duration as needed
 			tailD_timer.timeout.connect(func():
 				tailSide.disabled = false
-				var power_timer = get_tree().create_timer(0.4)  # Adjust duration as needed
+				var power_timer = get_tree().create_timer(0.5) # Adjust duration as needed
 				power_timer.timeout.connect(func():
 					tailSide.disabled = true
 				)
@@ -157,22 +159,28 @@ func handle_beast_actions():
 			player_beast.play("BreakSide")
 			player_beast.scale.x = -0.75
 			$TailSide.scale.x = -1
+			player_normal.scale.x = -1
+			$Sword.scale.x = -1
 			is_performing_action = true
-			var tailS_timer = get_tree().create_timer(0.3)  # Adjust duration as needed
-			tailS_timer.timeout.connect(func():
+			var tailD_timer = get_tree().create_timer(0.3) # Adjust duration as needed
+			tailD_timer.timeout.connect(func():
 				tailSide.disabled = false
+				var power_timer = get_tree().create_timer(0.5) # Adjust duration as needed
+				power_timer.timeout.connect(func():
+					tailSide.disabled = true
+				)
 			)
-			tailSide.disabled = true
-			print("here")
 		elif Input.is_action_pressed("hitD"):
 			player_beast.play("BreakDown")
 			is_performing_action = true
-			var tailS2_timer = get_tree().create_timer(0.3)  # Adjust duration as needed
-			tailS2_timer.timeout.connect(func():
+			var tailD_timer = get_tree().create_timer(0.3) # Adjust duration as needed
+			tailD_timer.timeout.connect(func():
 				tailD.disabled = false
+				var power_timer = get_tree().create_timer(0.5) # Adjust duration as needed
+				power_timer.timeout.connect(func():
+					tailD.disabled = true
+				)
 			)
-			tailD.disabled = true
-		
 	return
 
 # Monitor input release for cleanup
