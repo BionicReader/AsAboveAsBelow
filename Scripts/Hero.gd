@@ -225,4 +225,12 @@ func _on_change_await_timeout():
 func _on_tail_down_body_entered(body: Node):
 	if body is BreakableTile:
 		body.break_tile()
+		
+		
 
+@onready var health = $Health
+
+func _on_core_area_entered(area):
+	if area.name == "Bullet":
+		health.step = -10
+		health.show_percentage

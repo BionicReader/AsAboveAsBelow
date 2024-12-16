@@ -1,4 +1,4 @@
-[gd_scene load_steps=123 format=3 uid="uid://b57djdy70u8fx"]
+[gd_scene load_steps=124 format=3 uid="uid://b57djdy70u8fx"]
 
 [ext_resource type="Script" path="res://Scripts/Hero.gd" id="1_5stw2"]
 [ext_resource type="Texture2D" uid="uid://c23sn1i7jkvhy" path="res://Art/Sprites/SS - The Blind Huntress (Hero)/Sprite Sheet/7. Hit 48 x 48.png" id="2_3tasp"]
@@ -886,6 +886,10 @@ height = 60.0
 radius = 17.0
 height = 42.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r552a"]
+radius = 5.0
+height = 36.0
+
 [node name="CharacterBody2D" type="CharacterBody2D"]
 floor_constant_speed = true
 script = ExtResource("1_5stw2")
@@ -969,6 +973,23 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_jhrpd")
 disabled = true
 
+[node name="Core" type="Area2D" parent="."]
+
+[node name="core" type="CollisionShape2D" parent="Core"]
+position = Vector2(1, 0)
+shape = SubResource("CapsuleShape2D_r552a")
+
+[node name="Health" type="ProgressBar" parent="."]
+offset_left = -12.0
+offset_top = -25.0
+offset_right = 13.0
+offset_bottom = -21.0
+step = 10.0
+value = 100.0
+rounded = true
+show_percentage = false
+
 [connection signal="timeout" from="ChangeAwait" to="." method="_on_change_await_timeout"]
 [connection signal="body_entered" from="TailDown" to="." method="_on_tail_down_body_entered"]
 [connection signal="timeout" from="TailDelay" to="." method="_on_tail_delay_timeout"]
+[connection signal="area_entered" from="Core" to="." method="_on_core_area_entered"]
