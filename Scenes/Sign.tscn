@@ -28,6 +28,7 @@ text = "?"
 shape = SubResource("RectangleShape2D_wo6wg")
 
 [node name="Label2" type="Label" parent="."]
+visible = false
 offset_left = -1456.0
 offset_top = -1040.0
 offset_right = 4560.0

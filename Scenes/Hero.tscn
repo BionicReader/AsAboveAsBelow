@@ -1,4 +1,4 @@
-[gd_scene load_steps=125 format=3 uid="uid://b57djdy70u8fx"]
+[gd_scene load_steps=126 format=3 uid="uid://b57djdy70u8fx"]
 
 [ext_resource type="Script" path="res://Scripts/Hero.gd" id="1_5stw2"]
 [ext_resource type="Texture2D" uid="uid://c23sn1i7jkvhy" path="res://Art/Sprites/SS - The Blind Huntress (Hero)/Sprite Sheet/7. Hit 48 x 48.png" id="2_3tasp"]
@@ -864,9 +864,14 @@ tracks/1/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_3a6s6"]
+resource_name = "Credits"
+length = 5.0
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_swk83"]
 _data = {
 "AttackArea": SubResource("Animation_hidi3"),
+"Credits": SubResource("Animation_3a6s6"),
 "DashArea": SubResource("Animation_2id5y"),
 "DeathArea": SubResource("Animation_gu1pg"),
 "RESET": SubResource("Animation_ggm1r")

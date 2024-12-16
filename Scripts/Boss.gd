@@ -155,6 +155,7 @@ func death():
 		var death_timer = get_tree().create_timer(2.0)  # Adjust duration as needed
 		death_timer.timeout.connect(func():
 			self.queue_free()
+			get_tree().quit()
 		)
 	)
 

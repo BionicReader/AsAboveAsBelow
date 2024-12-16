@@ -319,7 +319,7 @@ func die():
 		$PlayerDeath.play("Death")
 		var death_timer = get_tree().create_timer(0.9)  # Adjust duration as needed
 		death_timer.timeout.connect(func():
-			self.queue_free()
+			$Win.visible = true
 		)
 	)
 

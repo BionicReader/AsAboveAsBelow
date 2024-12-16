@@ -1291,9 +1291,6 @@ shape = SubResource("RectangleShape2D_m1ba4")
 [node name="Boss" parent="." instance=ExtResource("7_5qysr")]
 position = Vector2(1136, 1069)
 
-[node name="Boss2" parent="." instance=ExtResource("7_5qysr")]
-position = Vector2(2096, 1069)
-
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 scale = Vector2(3, 3)
 transform = Transform2D(3, 0, 0, 3, 0, 0)
