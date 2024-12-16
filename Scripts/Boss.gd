@@ -1,10 +1,11 @@
 extends CharacterBody2D
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+const SPEED = 10
 
-@onready var shootAni = $Shoot
+@onready var attackAni = $Attack
 @onready var die = $Die
+@onready var main_body = $MainBody
+@onready var shootAni = $Shoot
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -15,6 +16,8 @@ var state_factory
 var chase = false
 var defense = false
 var attack = false
+
+var dead = false
 
 func _ready():
 	state_factory = StateFactory.new()
@@ -36,20 +39,21 @@ func change_state(new_state_name):
 	add_child(state)
 	
 func _process(delta):
-	if attack == false:
-		shootAni.visible = false
-	elif attack == true:
-		shootAni.visible = true
+	if shootAni != null:
+		if attack == false:
+			shootAni.visible = false
+		elif attack == true:
+			shootAni.visible = true
 
 func _on_player_detect_body_entered(body):
-	if body.name == "Hero":
+	if body.name == "Hero" and ! dead:
 		chase = true
 		attack = false
 		defense = false
 		change_state("chase")
 		
 func _on_player_detect_body_exited(body):
-	if body.name == "Hero":
+	if body.name == "Hero" and !dead:
 		chase = false
 		attack = false
 		defense = false
@@ -57,22 +61,29 @@ func _on_player_detect_body_exited(body):
 
 
 func _on_melee_player_detect_body_entered(body):
-	if body.name == "Hero":
+	if body.name == "Hero" and !dead:
 		defense = true
+		main_body.visible = false
+		attackAni.visible = true
 		chase = false
 		attack = false
 		change_state("defense")
+	if body.name == "Sword":
+		pass
+
 
 func _on_melee_player_detect_body_exited(body):
-	if body.name == "Hero":
+	if body.name == "Hero" and !dead:
 		defense = false
+		main_body.visible = true
+		attackAni.visible = false
 		chase = false
 		attack = false
 		change_state("idle")
 
 
 func _on_shoot_player_detector_body_entered(body):
-	if body.name == "Hero":
+	if body.name == "Hero" and !dead:
 		defense = false
 		chase = false
 		attack = true
@@ -80,8 +91,25 @@ func _on_shoot_player_detector_body_entered(body):
 
 
 func _on_shoot_player_detector_body_exited(body):
-	if body.name == "Hero":
+	if body.name == "Hero" and !dead:
 		defense = false
 		chase = true
 		attack = false
 		change_state("chase")
+
+
+
+func _on_melee_player_detect_area_entered(area):
+	if area.name == "Sword":
+		change_state("die")
+		shootAni.stop()
+		$MainBody.visible = false
+		$Shoot.visible = false
+		$Attack.visible = false
+		dead = true
+		die.visible = true
+		die.play("Die")
+		var death_timer = get_tree().create_timer(2.0)  # Adjust duration as needed
+		death_timer.timeout.connect(func():
+			self.queue_free()
+		)

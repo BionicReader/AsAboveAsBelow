@@ -2,15 +2,19 @@ extends State
 class_name AState
 
 @onready var boss = $"."
+@onready var coll2d = $CollisionShape2D
+@onready var playerD = $PlayerDetect
+@onready var meleeD = $MeleePlayerDetect
+@onready var shootD = $ShootPlayerDetector
 
 func _ready():
 	atk()
 
 func atk():
+	# Play the animations for attack
 	animation.play("Shoot")
 	animation.play("ShootBody")
-	get_tree().create_timer(0.5).timeout
-	boss.position.x += 100
 
 func exit():
-	print ("Exit attack state")
+	print("Exit attack state")
+

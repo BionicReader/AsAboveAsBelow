@@ -8,7 +8,7 @@ func _init():
 		"attack": AState,
 		"chase": ChaseState,
 		"defense": DefenseState,
-		#"die": DieState
+		"die": DieState
 	}
 
 func get_state(state_name):

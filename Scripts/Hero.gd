@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
 # Movement constants
-var SPEED = 400.0  # Increased base speed
-const JUMP_FORCE = 800.0
+var SPEED = 800.0  # Increased base speed
+const JUMP_FORCE = 1000.0
 var GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
 const FRICTION = 0.1  # Add friction to stop sliding
 const ACCELERATION = 0.25  # Smooth acceleration
@@ -15,6 +15,8 @@ var current_form = PlayerForm.NORMAL
 var is_performing_action = false
 var is_moving = false
 var is_jumping = false
+
+@onready var sword = $Sword/sword
 
 # Node references
 @onready var move_area = $MoveArea
@@ -91,13 +93,14 @@ func update_movement_animation(direction: float):
 	if current_form != PlayerForm.BEAST:
 		SPEED = 600.0
 		player_normal.play("Run")
-		player_normal.scale.x = sign(direction)
 	else:
 		SPEED = 200.0
 		player_beast.play("WalkState")
 		is_moving = true
-		player_beast.scale.x = 0.7 * sign(direction)
-		$TailDown.scale.x = 0.7 * sign(direction)
+	player_normal.scale.x = sign(direction)
+	player_beast.scale.x = 0.7 * sign(direction)
+	$TailDown.scale.x = 1 * sign(direction)
+	$Sword.scale.x = -1.2 * sign(direction)
 		
 func perform_jump():
 	is_jumping = true
@@ -167,6 +170,7 @@ func handle_normal_actions():
 		player_normal.visible = false
 		print("attack")
 		attack_anim.play("Attack")
+		sword.disabled = false
 		
 		# Flip based on the last direction of the normal player
 		attack_anim.scale.x = -player_normal.scale.x
@@ -185,6 +189,7 @@ func handle_normal_actions():
 			attack_anim.visible = false
 			player_normal.visible = true
 			is_performing_action = false
+			sword.disabled = true
 			# Reset position after attack
 			attack_anim.position.x = 0
 		)
